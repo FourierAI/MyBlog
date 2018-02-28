@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drye.myblog.demo.mapper.ArticleMapper">
+    <resultMap id="article" type="com.drye.myblog.demo.entity.ArticleEntity">
+        <id column="article_id" property="articleId"/>
+        <result column="article_category" property="articleCategory"/>
+        <result column="article_title" property="articleTitle"/>
+        <result column="article_content" property="articleContent"/>
+        <result column="article_time" property="articleTime"/>
+    </resultMap>
+    <select id="findHome" resultMap="article">
+        SELECT * FROM articles ORDER BY article_time DESC limit 5
+    </select>
+    <select id="findBycategory" resultType="com.drye.myblog.demo.entity.ArticleEntity" parameterType="String">
+        SELECT * FROM articles WHERE article_category=#{category}
+    </select>
+    <insert id="addArticle">
+        INSERT INTO articles (article_category, article_title, article_content, article_time) VALUES (#{category},#{title},#{content},#{time})
+    </insert>
+    <!--分页效果-->
+    <!--每页显示5篇文章，分页效果-->
+    <select id="articlePagination" parameterType="String" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM articles WHERE article_category=#{category}
+    </select>
+    <!--按照<li><a></a></li>标签传来的值，确定将哪部分内容呈现给用户-->
+    <select id="findByPagination" resultType="com.drye.myblog.demo.entity.ArticleEntity">
+        SELECT * FROM articles WHERE article_category=#{category} ORDER BY article_time LIMIT #{page},5
+    </select>
+    <!--getByObscure模糊查找，包括文章内容与标题-->
+    <select id="findByObscure" resultType="com.drye.myblog.demo.entity.ArticleEntity" parameterType="String">
+        SELECT * FROM articles WHERE article_title LIKE concat('%',#{field},'%') OR article_content LIKE concat('%',#{field},'%')
+    </select>
+    <!--显示在管理页面的文章信息列表-->
+    <select id="findAtAdminHome" resultType="com.drye.myblog.demo.entity.ArticleEntity">
+        SELECT * FROM  articles ORDER BY article_time DESC limit #{page},20
+    </select>
+    <select id="adminPagination" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM articles
+    </select>
+</mapper>

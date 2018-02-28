@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>博客主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        /*导航条排版*/
+
+        #menu-name {
+            padding-left: 80px;
+        }
+
+        #menu li {
+            padding: 0px 50px;
+        }
+
+        body {
+            font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+        }
+
+    </style>
+</head>
+
+<body>
+<!--导航条，全站搜索文章，从后端查询-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid" id="navbar-container">
+        <!--适配移动端，折叠菜单-->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="menu-name">菜单</a>
+        </div>
+        <!--内容-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="menu">
+                <li class="active">
+                    <a href="/index">主页
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/articles?category=编程软件&page=1">编程|软件</a>
+                </li>
+                <li>
+                    <a href="/articles?category=数学物理&page=1">数学|物理</a>
+                </li>
+                <li>
+                    <a href="/articles?category=摄影电影&page=1">摄影|电影</a>
+                </li>
+                <li>
+                    <a href="/articles?category=生活关于我&page=1">生活|关于我</a>
+                </li>
+                <li>
+                    <a href="/login">管理</a>
+                </li>
+                <!--站内搜索-->
+                <form class="navbar-form navbar-right" action="/findByObscure" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" name="field">
+                    </div>
+                    <button type="submit" class="btn btn-default">文章搜索</button>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--内容-->
+<!--文章-->
+<!--后端读取，按照时间顺序，读取4篇文章，后期用freemarker标签迭代-->
+<#if articleList??>
+    <#list articleList as article>
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="container-fluid">
+                    <div class="jumbotron">
+                        <h1>${article.articleTitle}</h1>
+                        <p id="category"><span class="label label-warning ">${article.articleCategory}</span></p>
+                        <p>${article.articleContent}</p>
+                        <p>
+                            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+        </div>
+    </#list>
+</#if>
+<!--分页,从后端读取数据来进行分页-->
+<#if pagination??>
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <#list 1..pagination!1 as i>
+                        <li><a href="/articles?category=${category}&page=${i}">${i}</a></li>
+                    </#list>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+</#if>
+<!--页脚-->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <hr>
+        <footer>
+            <p class="pull-right">
+                <a href="#top">回到顶部</a>
+            </p>
+            <p>&nbsp&nbsp&nbsp&nbsp&nbsp@2018&nbsp&nbspGeekYe</p>
+        </footer>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

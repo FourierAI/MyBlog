@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drye.myblog.demo.mapper.AdminMapper">
+    <!--校对账号密码-->
+    <select id="selectAdmin" resultType="com.drye.myblog.demo.entity.AdminEntity">
+        SELECT admin_name,admin_password FROM admin WHERE admin_name =#{name} AND admin_password=#{password}
+    </select>
+    <!--增加Admin账号密码-->
+    <insert id="addAdmin">
+        INSERT INTO admin (admin_name, admin_password) VALUES (#{name},#{password})
+    </insert>
+</mapper>

@@ -1,0 +1,66 @@
+package com.drye.myblog.demo.service;
+
+import com.drye.myblog.demo.entity.ArticleEntity;
+
+import java.util.List;
+
+public interface ArticleService {
+    /**
+    * @Description:  显示在主页
+    * @Param: []
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/2/13
+    */
+    List<ArticleEntity> findHome();
+    /**
+    * @Description:  按条件查找文章
+    * @Param: [category]
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/2/13
+    */
+    List<ArticleEntity> findBycategory(String category);
+    /**
+    * @Description:  pagination分页效果
+    * @Param: [category]
+    * @return: java.lang.Integer
+    * @Author: GeekYe
+    * @Date: 2018/2/13
+    */
+    Integer pagination(String category);
+    /**
+    * @Description:  按照<li><a></a></li>标签传来的值，确定将哪部分内容呈现给用户
+    * @Param: [category, page]
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/2/13
+    */
+    List<ArticleEntity> findByPagination(String category,Integer page);
+    /**
+    * @Description:  模糊查找
+    * @Param: [field]
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/2/13
+    */
+    List<ArticleEntity> findByObscure(String field);
+    /**
+    * @Description:  在管理界面显示文章列表
+    * @Param: []
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/2/13
+    */
+    List<ArticleEntity> findAtAdminHome(Integer page);
+    /**
+    * @Description:  分页效果
+    * @Param: []
+    * @return: java.lang.Integer
+    * @Author: GeekYe
+    * @Date: 2018/2/16
+    */
+    Integer adminPagination();
+
+    void addArticle(ArticleEntity articleEntity);
+}

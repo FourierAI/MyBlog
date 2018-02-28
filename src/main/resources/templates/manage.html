@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>管理界面</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+    <style>
+        /*导航条排版*/
+
+        #menu-name {
+            padding-left: 80px;
+        }
+
+        #menu li {
+            padding: 0px 50px;
+        }
+
+        body {
+            font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+        }
+
+        .table {
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+<!--导航条-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid" id="navbar-container">
+        <!--适配移动端，折叠菜单-->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" id="menu-name">菜单</a>
+        </div>
+        <!--内容-->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="menu">
+                <li class="active">
+                    <a href="#">主页
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">编程|软件</a>
+                </li>
+                <li>
+                    <a href="#">数学|物理</a>
+                </li>
+                <li>
+                    <a href="#">摄影|电影</a>
+                </li>
+                <li>
+                    <a href="#">生活|关于我</a>
+                </li>
+                <li>
+                    <a href="/write">增加文章</a>
+                </li>
+                <li>
+                    <a href="/destorysession">退出管理系统</a>
+                </li>
+                <!--站内搜索-->
+                <!--跟用户搜索框有区别，注意controller的匹配路径-->
+                <form class="navbar-form navbar-right" action="#" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" name="field">
+                    </div>
+                    <button type="submit" class="btn btn-default">文章搜索</button>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!--表格，从后端读取，可排序-->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table" id="table">
+            <tr>
+                <th>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-success">发布时间</button>
+                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/admin/article?method=acs">升序</a>
+                            </li>
+                            <li>
+                                <a href="/admin/article?method=desc">降序</a>
+                            </li>
+                        </ul>
+                    </div>
+                </th>
+                <th>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning">文章类别</button>
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="#">编程/软件</a>
+                            </li>
+                            <li>
+                                <a href="#">数学/物理</a>
+                            </li>
+                            <li>
+                                <a href="#">摄影/电影</a>
+                            </li>
+                            <li>
+                                <a href="#">生活/关于我</a>
+                            </li>
+                        </ul>
+                    </div>
+                </th>
+                <th>
+                    <button type="button" class="btn btn-danger">文章标题</button>
+                </th>
+                <th>
+                    <button type="button" class="btn btn-primary">文章操作</button>
+                </th>
+                <th>
+                    <button type="button" class="btn btn-info">更多</button>
+                </th>
+            </tr>
+            <#if articleList??>
+                <#list articleList as article>
+                    <tr>
+                        <td>${article.articleTime}</td>
+                        <td>${article.articleCategory}</td>
+                        <td>${article.articleTitle}</td>
+                        <td><!-- Single button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    删除 <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">删除</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#">修改</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="#">
+                                <span class="label label-info">more</span>
+                            </a>
+                        </td>
+                    </tr>
+                </#list>
+            </#if>
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<!--分页,从后端读取数据来进行分页-->
+<#if pagination??>
+    <div class="row">
+        <div class="col-md-5"></div>
+        <div class="col-md-2">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <#list 1..pagination!1 as i>
+                        <li><a href="/admin/pagination?page=${i}">${i}</a></li>
+                    </#list>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-md-5"></div>
+    </div>
+</#if>
+<!--页脚-->
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <hr>
+        <footer>
+            <p class="pull-right">
+                <a href="#top">回到顶部</a>
+            </p>
+            <p>&nbsp&nbsp&nbsp&nbsp&nbsp@2018&nbsp&nbspGeekYe</p>
+        </footer>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
