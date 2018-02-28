@@ -13,18 +13,48 @@ import java.util.List;
 @Component
 public interface ArticleMapper {
 
-    /**按照更新时间，显示主页的文章*/
+    /**
+    * @Description:  按照更新时间，显示主页的文章
+    * @Param: []
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
     List<ArticleEntity> findHome();
 
-    /**按种类查询，显示在各个分页上*/
+    /**
+    * @Description:  按种类查询，显示在各个分页上
+    * @Param: [category]
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
     List<ArticleEntity> findBycategory(@Param(value = "category") String category);
 
-    /**增加文章*/
+    /**
+    * @Description:  增加文章
+    * @Param: [category, title, content, time]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
     void addArticle(@Param(value = "category") String category,@Param(value = "title") String title,@Param(value = "content") String content,@Param(value = "time") String time);
 
-    /**分页效果*/
+    /**
+    * @Description:  分页效果
+    * @Param: [category]
+    * @return: java.lang.Integer
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
     Integer articlePagination(@Param(value = "category") String category);
-    /**按索引分页查找文章*/
+    /**
+    * @Description:  按索引分页查找文章
+    * @Param: [category, page]
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
     List<ArticleEntity> findByPagination(@Param(value = "category") String category,@Param(value = "page") Integer page);
 
     /**
@@ -51,4 +81,12 @@ public interface ArticleMapper {
     * @Date: 2018/2/16
     */
     Integer adminPagination();
+    /**
+    * @Description:  根据前端传过来的articleId来删除文章
+    * @Param: [articleId]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
+    void deleteArticle(@Param(value = "articleId") Integer articleId);
 }

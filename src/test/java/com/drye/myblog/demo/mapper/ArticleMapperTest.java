@@ -80,5 +80,9 @@ public class ArticleMapperTest {
     public void adminPagination(){
         System.out.println(articleMapper.adminPagination());
     }
+    @Test
+    public void deleteArticle(){
+        articleMapper.deleteArticle(249);
+    }
 }
 

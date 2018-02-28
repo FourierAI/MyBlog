@@ -91,6 +91,11 @@ public class ArticleServiceImpl implements ArticleService {
         articleMapper.addArticle(articleEntity.getArticleCategory(),articleEntity.getArticleTitle(),articleEntity.getArticleContent(),articleEntity.getArticleTime());
     }
 
+    @Override
+    public void deleteArticle(Integer articleId) {
+        articleMapper.deleteArticle(articleId);
+    }
+
     public void setArticleMapper(ArticleMapper articleMapper) {
         this.articleMapper = articleMapper;
     }

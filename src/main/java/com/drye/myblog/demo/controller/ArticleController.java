@@ -25,6 +25,13 @@ public class ArticleController {
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
+    /**
+    * @Description:  模糊查找全站
+    * @Param: [field, model]
+    * @return: java.lang.String
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
     @RequestMapping(value = {"findByObscure"},method = RequestMethod.POST)
     public String findByObscure(@RequestParam(value = "field") String field, Model model){
 
@@ -32,11 +39,33 @@ public class ArticleController {
         model.addAttribute("articleList",articleEntityList);
         return "templates/articles";
     }
-
-    @RequestMapping(value = {"/addArticle"},method = RequestMethod.POST)
+    /**
+    * @Description: 管理员增加文章
+    * @Param: [articleEntity]
+    * @return: java.lang.String
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
+    @RequestMapping(value = {"/admin/addArticle"},method = RequestMethod.POST)
     public String addArticle(ArticleEntity articleEntity){
         articleService.addArticle(articleEntity);
         logger.info(articleEntity.toString());
         return "templates/write";
+    }
+    /**
+    * @Description:  管理员删除文章
+    * @Param: [articleId, page]
+    * @return: java.lang.String
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
+    @RequestMapping(value = "/admin/article/{page}/{articleId}",method = RequestMethod.GET)
+    public String deleteArticle(@PathVariable(value = "articleId") Integer articleId,
+                                @PathVariable(value = "page") Integer page){
+
+        articleService.deleteArticle(articleId);
+
+        return "redirect:/admin/pagination?page="+page;
+
     }
 }

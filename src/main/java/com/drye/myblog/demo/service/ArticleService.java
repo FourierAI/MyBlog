@@ -61,6 +61,20 @@ public interface ArticleService {
     * @Date: 2018/2/16
     */
     Integer adminPagination();
-
+    /**
+    * @Description:  增加文章
+    * @Param: [articleEntity]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
     void addArticle(ArticleEntity articleEntity);
+    /**
+    * @Description:  根据ID删除文章
+    * @Param: [articleId]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/2/28
+    */
+    void deleteArticle(Integer articleId);
 }

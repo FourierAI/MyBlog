@@ -39,4 +39,8 @@
     <select id="adminPagination" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM articles
     </select>
+    <!--删除文章-->
+    <delete id="deleteArticle" parameterType="int">
+        DELETE FROM articles WHERE article_id=#{articleId}
+    </delete>
 </mapper>
