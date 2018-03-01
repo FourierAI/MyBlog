@@ -38,7 +38,10 @@ public class AdminController {
     * @Date: 2018/2/28
     */
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public String formVerify(@RequestParam(value = "page",defaultValue = "1") Integer page, AdminEntity adminEntity, Model model, HttpSession httpSession) {
+    public String formVerify(@RequestParam(value = "page",defaultValue = "1") Integer page,
+                             @RequestParam(value = "category",defaultValue = "default" ) String category,
+                             AdminEntity adminEntity,
+                             Model model, HttpSession httpSession) {
         //先判断是否为空，防止空指针异常
         if (adminEntity.getAdminName() != null || adminEntity.getAdminPassword() != null) {
             if (adminService.selectAdmin(adminEntity.getAdminName(), adminEntity.getAdminPassword()) == null) {
@@ -48,7 +51,7 @@ public class AdminController {
                 List<ArticleEntity> articleEntityList=articleService.findAtAdminHome(page-1);
                 model.addAttribute("page",page);
                 model.addAttribute("articleList",articleEntityList);
-                model.addAttribute("pagination",articleService.adminPagination());
+                model.addAttribute("pagination",articleService.adminPagination(category));
                 httpSession.setAttribute("SessionJudge", adminEntity.getAdminName());
                 return "templates/manage";
             }
@@ -57,19 +60,43 @@ public class AdminController {
             return "templates/login";
         }
     }
+//    /**
+//    * @Description:  管理员分页效果
+//    * @Param: [page, model]
+//    * @return: java.lang.String
+//    * @Author: GeekYe
+//    * @Date: 2018/2/16
+//    */
+//    @RequestMapping(value = "/admin/pagination",method = RequestMethod.GET)
+//    public String skipByPagination(@RequestParam(value = "page",defaultValue = "1") Integer page,Model model){
+//        List<ArticleEntity> articleEntityList=articleService.findAtAdminHome(page-1);
+//        model.addAttribute("page",page);
+//        model.addAttribute("articleList",articleEntityList);
+//        model.addAttribute("pagination",articleService.adminPagination());
+//        return "templates/manage";
+//    }
     /**
-    * @Description:  管理员分页效果
-    * @Param: [page, model]
+    * @Description: 管理员页面，根据当前页和时间顺序显示
+    * @Param: [page, method]
     * @return: java.lang.String
     * @Author: GeekYe
-    * @Date: 2018/2/16
+    * @Date: 2018/3/1
     */
-    @RequestMapping(value = "/admin/pagination",method = RequestMethod.GET)
-    public String skipByPagination(@RequestParam(value = "page",defaultValue = "1") Integer page,Model model){
-        List<ArticleEntity> articleEntityList=articleService.findAtAdminHome(page-1);
-        model.addAttribute("page",page);
+    @RequestMapping(value = {"/admin/pagination"},method = RequestMethod.GET)
+    public String findByTime(@RequestParam(value = "page",defaultValue = "1") Integer page,
+                             @RequestParam(value = "method",defaultValue = "asc") String method,
+                             @RequestParam(value = "category",defaultValue = "default") String category,
+                              Model model){
+        System.out.println("controller----------------controller-----------"+category+"------controller--------------------");
+        System.out.println("controller---------------------method----------------"+method);
+        System.out.println("controller-------------------------------------page----------------"+page);
+        List<ArticleEntity> articleEntityList=articleService.findByTime(method,page-1,category);
         model.addAttribute("articleList",articleEntityList);
-        model.addAttribute("pagination",articleService.adminPagination());
+        model.addAttribute("method",method);
+        model.addAttribute("page",page);
+        model.addAttribute("category",category);
+        model.addAttribute("pagination",articleService.adminPagination(category));
+
         return "templates/manage";
     }
     /**

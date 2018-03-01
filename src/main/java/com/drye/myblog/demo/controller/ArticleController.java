@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 @RequestMapping("/")
@@ -59,13 +60,19 @@ public class ArticleController {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    @RequestMapping(value = "/admin/article/{page}/{articleId}",method = RequestMethod.GET)
-    public String deleteArticle(@PathVariable(value = "articleId") Integer articleId,
-                                @PathVariable(value = "page") Integer page){
-
+    @RequestMapping(value = "/admin/article",method = RequestMethod.GET)
+    public String deleteArticle(@RequestParam(value = "articleId") Integer articleId,
+                                @RequestParam(value = "page") Integer page,
+                                @RequestParam(value = "category",defaultValue = "default") String category,
+                                @RequestParam(value = "method",defaultValue = "asc") String method,
+                                RedirectAttributes redirectAttributes){
+        System.out.println(articleId);
+        System.out.println("controller的--------------------------------------------------"+category);
         articleService.deleteArticle(articleId);
-
-        return "redirect:/admin/pagination?page="+page;
+        redirectAttributes.addAttribute("page", page);
+        redirectAttributes.addAttribute("category", category);
+        redirectAttributes.addAttribute("method", method);
+        return "/admin/pagination";
 
     }
 }

@@ -80,7 +80,7 @@ public interface ArticleMapper {
     * @Author: GeekYe
     * @Date: 2018/2/16
     */
-    Integer adminPagination();
+    Integer adminPagination(@Param(value = "category") String category);
     /**
     * @Description:  根据前端传过来的articleId来删除文章
     * @Param: [articleId]
@@ -89,4 +89,14 @@ public interface ArticleMapper {
     * @Date: 2018/2/28
     */
     void deleteArticle(@Param(value = "articleId") Integer articleId);
+    /**
+    * @Description:  通过时间排序
+    * @Param: [method, page]
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/3/1
+    */
+    List<ArticleEntity> findByTime(@Param(value = "method") String method,
+                                   @Param(value = "page") Integer page,
+                                   @Param(value = "articleCategory") String articleCategory);
 }

@@ -78,8 +78,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Integer adminPagination() {
-        Integer paginationNum=articleMapper.adminPagination();
+    public Integer adminPagination(String category) {
+        Integer paginationNum=articleMapper.adminPagination(category);
         return paginationNum%20==0 ? paginationNum/20 : paginationNum/20+1;
     }
 
@@ -94,6 +94,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void deleteArticle(Integer articleId) {
         articleMapper.deleteArticle(articleId);
+    }
+
+    @Override
+    public List<ArticleEntity> findByTime(String method, Integer page, String category) {
+        System.out.println(category+"Service--------------------------");
+        page=page*20;
+        return articleMapper.findByTime( method , page , category );
     }
 
     public void setArticleMapper(ArticleMapper articleMapper) {

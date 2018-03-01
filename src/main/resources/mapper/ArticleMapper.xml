@@ -13,8 +13,12 @@
     <select id="findHome" resultMap="article">
         SELECT * FROM articles ORDER BY article_time DESC limit 5
     </select>
+    <!--按照种类统计-->
     <select id="findBycategory" resultType="com.drye.myblog.demo.entity.ArticleEntity" parameterType="String">
-        SELECT * FROM articles WHERE article_category=#{category}
+        SELECT * FROM articles
+        <if test="category!='default'">
+            WHERE article_category=#{category}
+        </if>
     </select>
     <insert id="addArticle">
         INSERT INTO articles (article_category, article_title, article_content, article_time) VALUES (#{category},#{title},#{content},#{time})
@@ -22,7 +26,10 @@
     <!--分页效果-->
     <!--每页显示5篇文章，分页效果-->
     <select id="articlePagination" parameterType="String" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM articles WHERE article_category=#{category}
+        SELECT COUNT(*) FROM articles
+        <if test="category!='default'">
+            WHERE article_category=#{category}
+        </if>
     </select>
     <!--按照<li><a></a></li>标签传来的值，确定将哪部分内容呈现给用户-->
     <select id="findByPagination" resultType="com.drye.myblog.demo.entity.ArticleEntity">
@@ -38,9 +45,29 @@
     </select>
     <select id="adminPagination" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM articles
+        <if test="category!='default'">
+            WHERE article_category=#{category}
+        </if>
     </select>
     <!--删除文章-->
     <delete id="deleteArticle" parameterType="int">
         DELETE FROM articles WHERE article_id=#{articleId}
     </delete>
+    <!--通过时间排序-->
+    <select id="findByTime" resultType="com.drye.myblog.demo.entity.ArticleEntity">
+        SELECT * FROM articles
+        <if test="articleCategory!='default'">
+            WHERE article_category=#{articleCategory}
+        </if>
+        ORDER BY article_time
+        <choose>
+            <when test="method=='asc'">
+                  ASC
+            </when>
+            <otherwise>
+                  DESC
+            </otherwise>
+        </choose>
+        limit #{page},20
+    </select>
 </mapper>

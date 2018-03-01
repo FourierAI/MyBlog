@@ -100,14 +100,14 @@
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/admin/article?method=acs">升序</a>
-                            </li>
-                            <li>
-                                <a href="/admin/article?method=desc">降序</a>
-                            </li>
-                        </ul>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/admin/pagination?page=${page}&method=asc<#if category??>&category=${category}</#if>">升序</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/pagination?page=${page}&method=desc<#if category??>&category=${category}</#if>">降序</a>
+                                </li>
+                            </ul>
                     </div>
                 </th>
                 <th>
@@ -117,20 +117,20 @@
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="#">编程/软件</a>
-                            </li>
-                            <li>
-                                <a href="#">数学/物理</a>
-                            </li>
-                            <li>
-                                <a href="#">摄影/电影</a>
-                            </li>
-                            <li>
-                                <a href="#">生活/关于我</a>
-                            </li>
-                        </ul>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=编程软件">编程/软件</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=数学物理">数学/物理</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=摄影电影">摄影/电影</a>
+                                </li>
+                                <li>
+                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=生活关于我">生活/关于我</a>
+                                </li>
+                            </ul>
                     </div>
                 </th>
                 <th>
@@ -155,7 +155,7 @@
                                     删除 <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/admin/article/${page}/${article.articleId}">删除</a></li>
+                                    <li><a href="/admin/article?articleId=${article.articleId}<#if page??>&page=${page}</#if><#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">删除</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="#">修改</a></li>
                                 </ul>
@@ -173,6 +173,7 @@
     </div>
     <div class="col-md-2"></div>
 </div>
+
 <!--分页,从后端读取数据来进行分页-->
 <#if pagination??>
     <div class="row">
@@ -186,7 +187,7 @@
                         </a>
                     </li>
                     <#list 1..pagination!1 as i>
-                        <li><a href="/admin/pagination?page=${i}">${i}</a></li>
+                        <li><a href="/admin/pagination?page=${i}<#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">${i}</a></li>
                     </#list>
                     <li>
                         <a href="#" aria-label="Next">

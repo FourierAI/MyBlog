@@ -54,13 +54,13 @@ public interface ArticleService {
     */
     List<ArticleEntity> findAtAdminHome(Integer page);
     /**
-    * @Description:  分页效果
-    * @Param: []
+    * @Description: 管理分页效果
+    * @Param: [category]
     * @return: java.lang.Integer
     * @Author: GeekYe
-    * @Date: 2018/2/16
+    * @Date: 2018/3/1
     */
-    Integer adminPagination();
+    Integer adminPagination(String category);
     /**
     * @Description:  增加文章
     * @Param: [articleEntity]
@@ -77,4 +77,12 @@ public interface ArticleService {
     * @Date: 2018/2/28
     */
     void deleteArticle(Integer articleId);
+    /**
+    * @Description: 按照时间排序显示
+    * @Param: [method]
+    * @return: java.util.List<com.drye.myblog.demo.entity.ArticleEntity>
+    * @Author: GeekYe
+    * @Date: 2018/3/1
+    */
+    List<ArticleEntity> findByTime(String method, Integer page, String category);
 }

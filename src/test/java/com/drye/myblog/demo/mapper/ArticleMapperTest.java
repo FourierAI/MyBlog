@@ -78,11 +78,20 @@ public class ArticleMapperTest {
     }
     @Test
     public void adminPagination(){
-        System.out.println(articleMapper.adminPagination());
+        System.out.println(articleMapper.adminPagination("编程软件"));
     }
     @Test
     public void deleteArticle(){
         articleMapper.deleteArticle(249);
+    }
+
+    @Test
+    public void findByTime(){
+        List<ArticleEntity> articleEntityList=articleMapper.findByTime("asc",0,"编程软件");
+        for (ArticleEntity articleEntity:articleEntityList
+             ) {
+            System.out.println(articleEntity.getArticleTime());
+        }
     }
 }
 
