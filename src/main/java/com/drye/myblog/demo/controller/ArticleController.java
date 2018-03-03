@@ -66,13 +66,23 @@ public class ArticleController {
                                 @RequestParam(value = "category",defaultValue = "default") String category,
                                 @RequestParam(value = "method",defaultValue = "asc") String method,
                                 RedirectAttributes redirectAttributes){
-        System.out.println(articleId);
-        System.out.println("controller的--------------------------------------------------"+category);
         articleService.deleteArticle(articleId);
         redirectAttributes.addAttribute("page", page);
         redirectAttributes.addAttribute("category", category);
         redirectAttributes.addAttribute("method", method);
         return "/admin/pagination";
-
+    }
+    /**
+    * @Description: 通过learn more传来的articleId获取文章详细信息
+    * @Param: [articleId, model]
+    * @return: java.lang.String
+    * @Author: GeekYe
+    * @Date: 2018/3/3
+    */
+    @RequestMapping(value = "/article/{articleId}",method = RequestMethod.GET)
+    public String getArticleById(@PathVariable(value = "articleId") Integer articleId,
+                                 Model model){
+        model.addAttribute("article",articleService.getArticleById(articleId));
+        return "/templates/article";
     }
 }

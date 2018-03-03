@@ -60,21 +60,7 @@ public class AdminController {
             return "templates/login";
         }
     }
-//    /**
-//    * @Description:  管理员分页效果
-//    * @Param: [page, model]
-//    * @return: java.lang.String
-//    * @Author: GeekYe
-//    * @Date: 2018/2/16
-//    */
-//    @RequestMapping(value = "/admin/pagination",method = RequestMethod.GET)
-//    public String skipByPagination(@RequestParam(value = "page",defaultValue = "1") Integer page,Model model){
-//        List<ArticleEntity> articleEntityList=articleService.findAtAdminHome(page-1);
-//        model.addAttribute("page",page);
-//        model.addAttribute("articleList",articleEntityList);
-//        model.addAttribute("pagination",articleService.adminPagination());
-//        return "templates/manage";
-//    }
+
     /**
     * @Description: 管理员页面，根据当前页和时间顺序显示
     * @Param: [page, method]

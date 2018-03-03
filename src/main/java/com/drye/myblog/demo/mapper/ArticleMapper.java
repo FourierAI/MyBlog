@@ -99,4 +99,12 @@ public interface ArticleMapper {
     List<ArticleEntity> findByTime(@Param(value = "method") String method,
                                    @Param(value = "page") Integer page,
                                    @Param(value = "articleCategory") String articleCategory);
+    /**
+    * @Description:  通过Id获取文章详情
+    * @Param: [articleId]
+    * @return: com.drye.myblog.demo.entity.ArticleEntity
+    * @Author: GeekYe
+    * @Date: 2018/3/3
+    */
+    ArticleEntity getArticleById(@Param(value = "articleId") Integer articleId);
 }

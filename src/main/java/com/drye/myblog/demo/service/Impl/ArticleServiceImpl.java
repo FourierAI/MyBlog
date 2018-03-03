@@ -103,6 +103,13 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.findByTime( method , page , category );
     }
 
+    @Override
+    public ArticleEntity getArticleById(Integer articleId) {
+        ArticleEntity articleEntity=articleMapper.getArticleById(articleId);
+        articleEntity.setArticleContent( MDTool.markdown2Html( articleEntity.getArticleContent() ) );
+        return articleEntity;
+    }
+
     public void setArticleMapper(ArticleMapper articleMapper) {
         this.articleMapper = articleMapper;
     }

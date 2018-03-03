@@ -93,5 +93,17 @@ public class ArticleMapperTest {
             System.out.println(articleEntity.getArticleTime());
         }
     }
+    /**
+    * @Description: 测试通过Id获取文章单个对象
+    * @Param: []
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/3/3
+    */
+    @Test
+    public void getArticleById(){
+        System.out.println(articleMapper.getArticleById(96).toString());
+
+    }
 }
 

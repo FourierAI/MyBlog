@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>博客主页</title>
+    <title>文章详情</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
@@ -20,19 +20,15 @@
         #menu li {
             padding: 0px 50px;
         }
-        #category{
-            width: 10px;
-            height: auto;
-        }
+
         body {
             font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
         }
-
     </style>
 </head>
 
 <body>
-<!--导航条-->
+<!--导航条，全站搜索文章，从后端查询-->
 <nav class="navbar navbar-default">
     <div class="container-fluid" id="navbar-container">
         <!--适配移动端，折叠菜单-->
@@ -84,47 +80,61 @@
     </div>
 </nav>
 <!--内容-->
-<!--巨幕-->
+<!--文章-->
+<#if article??>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="container-fluid">
+                <div class="jumbotron">
+                    <h1>${article.articleTitle}</h1>
+                    <p id="category">
+                        <span class="label label-warning ">${article.articleCategory}</span>
+                    </p>
+                    <p>${article.articleContent}</p>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</#if>
+<!--文章评论部分-->
 <div class="row">
     <div class="col-md-2"></div>
     <div class="col-md-8">
-        <div class="container-fluid" id="content-container">
-            <div class="jumbotron">
-                <h1>Hello, world!</h1>
-                <p>This is a simple hero unit, a simple jumbotron-style component for calling
-                    <br/>extra attention to featured content or information.
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                </p>
-            </div>
+        <div class="container-fluid">
+            <form class="form-horizontal" action="/article/${article.articleId}/comment" method="post">
+                <!--name-->
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">姓名：</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputName">
+                    </div>
+                </div>
+                <!--email-->
+                <div class="form-group">
+                    <label for="inputEmail3" class="col-sm-2 control-label">邮箱地址：</label>
+                    <div class="col-sm-10">
+                        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                    </div>
+                </div>
+                <!--Content-->
+                <div class="form-group">
+                    <label for="inputContent" class="col-sm-2 control-label">评论内容：</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="inputContent">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <div class="col-md-2"></div>
 </div>
-<!--文章-->
-<!--后端读取，按照时间顺序，读取4篇文章，后期用freemarker标签迭代-->
-
-<#if articleList??>
-    <#list articleList as article>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <div class="container-fluid">
-                    <div class="jumbotron">
-                        <h1>${article.articleTitle}</h1>
-                        <p id="category"><span class="label label-warning ">${article.articleCategory}</span></p>
-                        <p>${article.articleContent}</p>
-                        <p>
-                            <a class="btn btn-primary btn-lg" href="/article/${article.articleId}" role="button">Learn more</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
-            </div>
-        </div>
-    </#list>
-</#if>
 <!--页脚-->
 <div class="row">
     <div class="col-md-2"></div>
@@ -132,7 +142,7 @@
         <hr>
         <footer>
             <p class="pull-right">
-                <a href="#navbar-container">回到顶部</a>
+                <a href="#top">回到顶部</a>
             </p>
             <p>&nbsp&nbsp&nbsp&nbsp&nbsp@2018&nbsp&nbspGeekYe</p>
         </footer>

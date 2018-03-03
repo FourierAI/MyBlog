@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.drye.myblog.demo.mapper.CommentMapper">
+    <insert id="saveComment">
+        INSERT INTO comment (comment_name, comment_email, comment_content, article_id)
+        VALUES (#{commentName},#{commentEmail},#{commentContent},#{articleId})
+    </insert>
+</mapper>

@@ -85,4 +85,11 @@ public interface ArticleService {
     * @Date: 2018/3/1
     */
     List<ArticleEntity> findByTime(String method, Integer page, String category);
+    /**
+    * @Description: 通过articleId获取单个文章    * @Param: [articleId]
+    * @return: com.drye.myblog.demo.entity.ArticleEntity
+    * @Author: GeekYe
+    * @Date: 2018/3/3
+    */
+    ArticleEntity getArticleById(Integer articleId);
 }

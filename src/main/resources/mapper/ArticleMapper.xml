@@ -70,4 +70,8 @@
         </choose>
         limit #{page},20
     </select>
+    <!--通过Id获取单个对象-->
+    <select id="getArticleById" resultType="com.drye.myblog.demo.entity.ArticleEntity">
+        SELECT * FROM articles WHERE article_id=#{articleId}
+    </select>
 </mapper>
