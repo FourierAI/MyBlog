@@ -19,9 +19,8 @@
         #menu li {
             padding: 0px 80px;
         }
-
         #layout{
-            font-size: large;
+            /*font-size: large;*/
         }
 
         body {
@@ -29,6 +28,7 @@
             font-size: 16px;
             line-height: 1.5;
         }
+
         .inputcontrol{
             margin-top: 15px;
             margin-bottom: 15px;
@@ -86,7 +86,7 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <div id="layout">
-            <form method="post" action="/admin/addArticle">
+            <form method="post" action="/admin/updateArticle?articleId=${article.articleId}">
                 <!--选择文章类别-->
                 <div class="form-group inputcontrol">
                     <label for="category" class="col-sm-2 control-label" style="text-align: left">文章类别</label>
@@ -103,7 +103,7 @@
                 <div class="form-group inputcontrol" style="margin: 15px 0px">
                     <label for="title" class="col-sm-2 control-label" style="text-align: left">文章标题</label>
                     <div class="col-sm-10" style="text-align: center">
-                        <input type="text" id="title" class="form-control" name="articleTitle" style="width: 90%">
+                        <input type="text" id="title" class="form-control" name="articleTitle" style="width: 90%" value="${article.articleTitle}"/>
                     </div>
                 </div>
                 <br/>
@@ -111,7 +111,7 @@
                 <!--填写文章内容-->
                 <div id="test-editormd" class="form-group inputcontrol" style="margin: 15px 0px">
                     <!-- Custom textarea name attribute <textarea style="display:none;" name="test-textarea-name"> -->
-                    <textarea class="form-control" style="display:none;" name="articleContent" placeholder="Enjoy It!"></textarea>
+                    <textarea class="form-control" style="display:none;" name="articleContent" placeholder="Enjoy It!">${article.articleContent}</textarea>
                 </div>
                 <div style="width:90%;margin: 10px auto;" style="margin: 15px 0px">
                     <button type="submit" class="btn btn-info">Submit</button>

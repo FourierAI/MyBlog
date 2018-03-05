@@ -3,12 +3,13 @@ package com.drye.myblog.demo.entity;
 import java.util.Date;
 
 public class CommentEntity {
+
     private Integer commentId;
     private String commentName;
     private String commentEmail;
     private String commentContent;
-    private Date commentTime;
-    private Integer articleId;
+    private String commentTime;
+    private ArticleEntity articleEntity;
 
     public Integer getCommentId() {
         return commentId;
@@ -42,20 +43,20 @@ public class CommentEntity {
         this.commentContent = commentContent;
     }
 
-    public Date getCommentTime() {
+    public String getCommentTime() {
         return commentTime;
     }
 
-    public void setCommentTime(Date commentTime) {
+    public void setCommentTime(String commentTime) {
         this.commentTime = commentTime;
     }
 
-    public Integer getArticleId() {
-        return articleId;
+    public ArticleEntity getArticleEntity() {
+        return articleEntity;
     }
 
-    public void setArticleId(Integer articleId) {
-        this.articleId = articleId;
+    public void setArticleEntity(ArticleEntity articleEntity) {
+        this.articleEntity = articleEntity;
     }
 
     public CommentEntity() {
@@ -69,7 +70,7 @@ public class CommentEntity {
                 ", commentEmail='" + commentEmail + '\'' +
                 ", commentContent='" + commentContent + '\'' +
                 ", commentTime=" + commentTime +
-                ", articleId=" + articleId +
+                ", articleEntity=" + articleEntity +
                 '}';
     }
 }

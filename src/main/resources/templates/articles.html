@@ -14,17 +14,21 @@
         /*导航条排版*/
 
         #menu-name {
-            padding-left: 80px;
+            padding-left: 50px;
         }
 
         #menu li {
-            padding: 0px 50px;
+            padding: 0px 30px;
         }
 
         body {
             font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
         }
-
+        #pagination{
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -94,7 +98,7 @@
                         <p id="category"><span class="label label-warning ">${article.articleCategory}</span></p>
                         <p>${article.articleContent}</p>
                         <p>
-                            <a class="btn btn-primary btn-lg" href="/article/${article.articleId}" role="button">Learn more</a>
+                            <a class="btn btn-primary btn-lg" href="/article?articleId=${article.articleId}" role="button">Learn more</a>
                         </p>
                     </div>
                 </div>
@@ -105,28 +109,28 @@
 </#if>
 <!--分页,从后端读取数据来进行分页-->
 <#if pagination??>
-    <div class="row">
-        <div class="col-md-5"></div>
-        <div class="col-md-2">
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li>
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <#list 1..pagination!1 as i>
+    <div class="row" id="pagination">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <#list 1..pagination!1 as i>
+                    <#if page==i>
+                    <li class="active"><a href="/articles?category=${category}&page=${i}">${i}</a></li>
+                    <#else/>
                         <li><a href="/articles?category=${category}&page=${i}">${i}</a></li>
-                    </#list>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <div class="col-md-5"></div>
+                    </#if>
+                </#list>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </#if>
 <!--页脚-->

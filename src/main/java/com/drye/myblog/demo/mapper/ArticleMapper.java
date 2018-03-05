@@ -5,8 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.util.List;
 
 @Mapper
@@ -107,4 +105,31 @@ public interface ArticleMapper {
     * @Date: 2018/3/3
     */
     ArticleEntity getArticleById(@Param(value = "articleId") Integer articleId);
+    /**
+    * @Description:  修改文章内容
+    * @Param: [articleId]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/3/4
+    */
+    void updateArticle(@Param(value = "articleId") Integer articleId,
+                       @Param(value = "articleCategory") String articleCategory,
+                       @Param(value = "articleTitle") String articleTitle,
+                       @Param(value = "articleContent") String articleContent);
+    /**
+    * @Description:  通过articleId查询之前有几条记录，来确定偏移量
+    * @Param: [articleId]
+    * @return: java.lang.Integer
+    * @Author: GeekYe
+    * @Date: 2018/3/5
+    */
+    Integer countBeforeRecord(@Param(value = "articleId") Integer articleId);
+    /**
+    * @Description:  通过偏移量查询articleId
+    * @Param: [offest]
+    * @return: java.lang.Integer
+    * @Author: GeekYe
+    * @Date: 2018/3/5
+    */
+    Integer getArticleIdByLimit(@Param(value = "offest") Integer offest);
 }

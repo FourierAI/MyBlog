@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +26,7 @@ public class ArticleMapperTest {
     }
     @Test
     public void findHomeTest(){
-        List<ArticleEntity> articleEntityList= (List<ArticleEntity>) articleMapper.findHome();
+        List<ArticleEntity> articleEntityList= articleMapper.findHome();
         for (ArticleEntity a:articleEntityList
              ) {
             System.out.println(a.toString());
@@ -104,6 +103,21 @@ public class ArticleMapperTest {
     public void getArticleById(){
         System.out.println(articleMapper.getArticleById(96).toString());
 
+    }
+    /**
+    * @Description: 修改文章内容
+    * @Param: []
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/3/4
+    */
+    @Test
+    public void updateArticle(){
+        articleMapper.updateArticle(75,"测试","测试","测试");
+    }
+    @Test
+    public void conutBeforeRecordTest(){
+        System.out.println(articleMapper.countBeforeRecord(75));
     }
 }
 

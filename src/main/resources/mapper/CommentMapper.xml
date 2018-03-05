@@ -3,8 +3,35 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.drye.myblog.demo.mapper.CommentMapper">
+    <!--配置resultMap-->
+    <resultMap id="comment" type="CommentEntity">
+        <id column="comment_id" property="commentId"/>
+        <result column="comment_name" property="commentName"/>
+        <result column="comment_email" property="commentEmail"/>
+        <result column="comment_content" property="commentContent"/>
+        <result column="comment_time" property="commentTime"/>
+        <!--多对一关联关系-->
+        <association property="articleEntity" javaType="com.drye.myblog.demo.entity.ArticleEntity">
+            <id column="article_id" property="articleId"/>
+            <result column="article_category" property="articleCategory"/>
+            <result column="article_title" property="articleTitle"/>
+            <result column="article_content" property="articleContent"/>
+            <result column="article_time" property="articleTime"/>
+        </association>
+    </resultMap>
+
+    <!--增加-->
     <insert id="saveComment">
-        INSERT INTO comment (comment_name, comment_email, comment_content, article_id)
-        VALUES (#{commentName},#{commentEmail},#{commentContent},#{articleId})
+        INSERT INTO comment
+        (comment_name, comment_email, comment_content, comment_time, article_id)
+        VALUES
+        (#{commentName},#{commentEmail},#{commentContent},#{commentTime},#{articleId})
     </insert>
+    
+    <!--查询-->
+    <select id="listComment" resultMap="comment">
+        SELECT comment_id, comment_name, comment_email, comment_content, comment_time, article_id
+        FROM comment
+        WHERE article_id=#{articleId}
+    </select>
 </mapper>

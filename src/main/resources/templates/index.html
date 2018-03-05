@@ -14,18 +14,21 @@
         /*导航条排版*/
 
         #menu-name {
-            padding-left: 80px;
+            padding-left: 50px;
         }
 
         #menu li {
-            padding: 0px 50px;
+            padding: 0px 30px;
         }
+
         #category{
             width: 10px;
             height: auto;
         }
         body {
             font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
         }
 
     </style>
@@ -116,7 +119,7 @@
                         <p id="category"><span class="label label-warning ">${article.articleCategory}</span></p>
                         <p>${article.articleContent}</p>
                         <p>
-                            <a class="btn btn-primary btn-lg" href="/article/${article.articleId}" role="button">Learn more</a>
+                            <a class="btn btn-primary btn-lg" href="/article?articleId=${article.articleId}" role="button">Learn more</a>
                         </p>
                     </div>
                 </div>

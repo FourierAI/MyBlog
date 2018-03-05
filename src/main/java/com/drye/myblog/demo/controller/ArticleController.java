@@ -3,6 +3,7 @@ package com.drye.myblog.demo.controller;
 import com.drye.myblog.demo.aspect.HttpAspect;
 import com.drye.myblog.demo.entity.ArticleEntity;
 import com.drye.myblog.demo.service.ArticleService;
+import com.drye.myblog.demo.service.CommentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,19 @@ import java.util.List;
 public class ArticleController {
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private CommentService commentService;
 
     private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
 
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
+
+    public void setCommentService(CommentService commentService) {
+        this.commentService = commentService;
+    }
+
     /**
     * @Description:  模糊查找全站
     * @Param: [field, model]
@@ -79,10 +87,38 @@ public class ArticleController {
     * @Author: GeekYe
     * @Date: 2018/3/3
     */
-    @RequestMapping(value = "/article/{articleId}",method = RequestMethod.GET)
-    public String getArticleById(@PathVariable(value = "articleId") Integer articleId,
+    @RequestMapping(value = "/article",method = RequestMethod.GET)
+    public String getArticleById(@RequestParam(value = "articleId") Integer articleId,
                                  Model model){
         model.addAttribute("article",articleService.getArticleById(articleId));
+        model.addAttribute("commentList",commentService.listComment(articleId));
         return "/templates/article";
+    }
+    @RequestMapping(value = "/admin/update/{articleId}", method = RequestMethod.GET)
+    public String Update(@PathVariable(value = "articleId") Integer articleId,
+                         Model model){
+        model.addAttribute("article",articleService.getArticleByIdNotMD(articleId));
+        return "templates/update_article";
+    }
+    @RequestMapping(value = "/admin/updateArticle", method = RequestMethod.POST)
+    public String updateArticle(@RequestParam(value = "articleCategory") String articleCategory,
+                                @RequestParam(value = "articleTitle") String articleTitle,
+                                @RequestParam(value = "articleContent") String articleContent,
+                                @RequestParam(value = "articleId") Integer articleId){
+        articleService.updateArticle(articleId,articleCategory,articleTitle,articleContent);
+        return "redirect:/admin/pagination";
+    }
+    @RequestMapping(value = "/admin/articleByObscure",method = RequestMethod.POST)
+    public String getArticleByObscure(@RequestParam(value = "field") String field,
+                                      Model model){
+        List<ArticleEntity> articleEntityList=articleService.findByObscure(field);
+        model.addAttribute("articleList",articleEntityList);
+        return "templates/article_obscure";
+    }
+    @RequestMapping(value = "/article/direction/{direction}/{articleId}",method = RequestMethod.GET)
+    public String getArticleByDirection(@PathVariable(value = "direction") String direction,
+                                        @PathVariable(value = "articleId") Integer articleId){
+
+        return "redirect:/article?articleId="+articleService.getArticleByDirection(direction,articleId);
     }
 }

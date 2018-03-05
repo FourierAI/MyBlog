@@ -73,9 +73,7 @@ public class AdminController {
                              @RequestParam(value = "method",defaultValue = "asc") String method,
                              @RequestParam(value = "category",defaultValue = "default") String category,
                               Model model){
-        System.out.println("controller----------------controller-----------"+category+"------controller--------------------");
-        System.out.println("controller---------------------method----------------"+method);
-        System.out.println("controller-------------------------------------page----------------"+page);
+
         List<ArticleEntity> articleEntityList=articleService.findByTime(method,page-1,category);
         model.addAttribute("articleList",articleEntityList);
         model.addAttribute("method",method);

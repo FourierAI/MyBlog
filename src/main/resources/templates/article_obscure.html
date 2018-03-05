@@ -29,9 +29,6 @@
         .table {
             font-size: 18px;
         }
-        #pagination{
-            text-align: center;
-        }
     </style>
 </head>
 
@@ -89,14 +86,14 @@
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="/admin/pagination?page=${page}&method=asc<#if category??>&category=${category}</#if>">升序</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/pagination?page=${page}&method=desc<#if category??>&category=${category}</#if>">降序</a>
-                                </li>
-                            </ul>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/admin/pagination?&method=asc<#if category??>&category=${category}</#if>">升序</a>
+                            </li>
+                            <li>
+                                <a href="/admin/pagination?&method=desc<#if category??>&category=${category}</#if>">降序</a>
+                            </li>
+                        </ul>
                     </div>
                 </th>
                 <th>
@@ -106,20 +103,20 @@
                             <span class="caret"></span>
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=编程软件">编程/软件</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=数学物理">数学/物理</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=摄影电影">摄影/电影</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=生活关于我">生活/关于我</a>
-                                </li>
-                            </ul>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/admin/pagination?<#if method??>&method=${method}</#if>&category=编程软件">编程/软件</a>
+                            </li>
+                            <li>
+                                <a href="/admin/pagination?<#if method??>&method=${method}</#if>&category=数学物理">数学/物理</a>
+                            </li>
+                            <li>
+                                <a href="/admin/pagination?<#if method??>&method=${method}</#if>&category=摄影电影">摄影/电影</a>
+                            </li>
+                            <li>
+                                <a href="/admin/pagination?<#if method??>&method=${method}</#if>&category=生活关于我">生活/关于我</a>
+                            </li>
+                        </ul>
                     </div>
                 </th>
                 <th>
@@ -163,32 +160,7 @@
     <div class="col-md-2"></div>
 </div>
 
-<!--分页,从后端读取数据来进行分页-->
-<#if pagination??>
-    <div class="row" id="pagination">
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <#list 1..pagination!1 as i>
-                    <#if page==i>
-                    <li class="active"><a href="/admin/pagination?page=${i}<#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">${i}</a></li>
-                    <#else/>
-                        <li><a href="/admin/pagination?page=${i}<#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">${i}</a></li>
-                    </#if>
-                </#list>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
-</#if>
+
 <!--页脚-->
 <div class="row">
     <div class="col-md-2"></div>

@@ -92,4 +92,29 @@ public interface ArticleService {
     * @Date: 2018/3/3
     */
     ArticleEntity getArticleById(Integer articleId);
+    /**
+    * @Description:  通过ID查询文章
+    * @Param:
+    * @return:
+    * @Author: GeekYe
+    * @Date: 2018/3/4
+    */
+    ArticleEntity getArticleByIdNotMD(Integer articleId);
+    /**
+    * @Description:  修改文字内容
+    * @Param: [articleId, articleCategory, articleTitle, articleContent]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/3/4
+    */
+    void updateArticle(Integer articleId, String articleCategory,
+                       String articleTitle, String articleContent);
+    /**
+    * @Description:  文章前进后退效果
+    * @Param: [direction, articleId]
+    * @return: Integer
+    * @Author: GeekYe
+    * @Date: 2018/3/5
+    */
+    Integer getArticleByDirection(String direction, Integer articleId);
 }

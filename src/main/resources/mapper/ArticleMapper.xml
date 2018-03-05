@@ -74,4 +74,25 @@
     <select id="getArticleById" resultType="com.drye.myblog.demo.entity.ArticleEntity">
         SELECT * FROM articles WHERE article_id=#{articleId}
     </select>
+    <!--修改文章内容-->
+    <update id="updateArticle">
+        UPDATE articles
+        SET
+        article_category=#{articleCategory},
+        article_title=#{articleTitle},
+        article_content=#{articleContent}
+        WHERE article_id=#{articleId}
+    </update>
+    <!--查询articleId之前有多少记录-->
+    <select id="countBeforeRecord" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM articles
+        WHERE #{articleId}>articles.article_id
+    </select>
+    <!--通过limit偏移查询前一个记录的Id值-->
+    <select id="getArticleIdByLimit" resultType="java.lang.Integer">
+        SELECT article_id
+        FROM articles
+        limit #{offest},1
+    </select>
 </mapper>

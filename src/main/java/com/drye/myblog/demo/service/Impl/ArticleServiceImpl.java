@@ -98,7 +98,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleEntity> findByTime(String method, Integer page, String category) {
-        System.out.println(category+"Service--------------------------");
         page=page*20;
         return articleMapper.findByTime( method , page , category );
     }
@@ -108,6 +107,30 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleEntity articleEntity=articleMapper.getArticleById(articleId);
         articleEntity.setArticleContent( MDTool.markdown2Html( articleEntity.getArticleContent() ) );
         return articleEntity;
+    }
+
+    @Override
+    public ArticleEntity getArticleByIdNotMD(Integer articleId) {
+        return articleMapper.getArticleById(articleId);
+    }
+
+    @Override
+    public void updateArticle(Integer articleId, String articleCategory, String articleTitle, String articleContent) {
+        articleMapper.updateArticle(articleId,articleCategory,articleTitle,articleContent);
+    }
+
+    @Override
+    public Integer getArticleByDirection(String direction, Integer articleId) {
+        final String DIRECTION_PREVIOUS="previous";
+        final String DIRECTION_NEXT="next";
+        Integer offest=articleMapper.countBeforeRecord(articleId);
+        if(direction.equals(DIRECTION_PREVIOUS)){
+            return articleMapper.getArticleIdByLimit(offest-1);
+        }
+        if(direction.equals(DIRECTION_NEXT)){
+            return articleMapper.getArticleIdByLimit(offest+1);
+        }
+        return articleId;
     }
 
     public void setArticleMapper(ArticleMapper articleMapper) {
