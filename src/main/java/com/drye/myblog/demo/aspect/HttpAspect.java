@@ -12,6 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+* @Description:  AOP日志实现
+* @Author: GeekYe
+* @Date: 2018/3/6
+*/
 @Component
 @Aspect
 public class HttpAspect {
