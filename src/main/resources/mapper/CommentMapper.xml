@@ -30,8 +30,17 @@
     
     <!--查询-->
     <select id="listComment" resultMap="comment">
-        SELECT comment_id, comment_name, comment_email, comment_content, comment_time, article_id
+        SELECT comment_id, comment_name, comment_email, comment_content, comment_time, comment.article_id,articles.article_title
         FROM comment
-        WHERE article_id=#{articleId}
+        LEFT JOIN
+        articles ON comment.article_id=articles.article_id
+        WHERE comment.article_id=#{articleId}
     </select>
+    <!--删除-->
+    <delete id="deleteComment">
+        DELETE
+        FROM comment
+        WHERE
+        comment_id=#{commentId}
+    </delete>
 </mapper>

@@ -27,7 +27,11 @@
         }
 
         .table {
-            font-size: 18px;
+            font-size: 16px;
+        }
+
+        #pagination {
+            text-align: center;
         }
     </style>
 </head>
@@ -80,76 +84,32 @@
         <table class="table" id="table">
             <tr>
                 <th>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success">发布时间</button>
-                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/admin/pagination?&method=asc<#if category??>&category=${category}</#if>">升序</a>
-                            </li>
-                            <li>
-                                <a href="/admin/pagination?&method=desc<#if category??>&category=${category}</#if>">降序</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <button type="button" class="btn btn-info">文章标题</button>
                 </th>
                 <th>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-warning">文章类别</button>
-                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="/admin/pagination?<#if method??>&method=${method}</#if>&category=编程软件">编程/软件</a>
-                            </li>
-                            <li>
-                                <a href="/admin/pagination?<#if method??>&method=${method}</#if>&category=数学物理">数学/物理</a>
-                            </li>
-                            <li>
-                                <a href="/admin/pagination?<#if method??>&method=${method}</#if>&category=摄影电影">摄影/电影</a>
-                            </li>
-                            <li>
-                                <a href="/admin/pagination?<#if method??>&method=${method}</#if>&category=生活关于我">生活/关于我</a>
-                            </li>
-                        </ul>
-                    </div>
+                    <button type="button" class="btn btn-success">评论时间</button>
                 </th>
                 <th>
-                    <button type="button" class="btn btn-danger">文章标题</button>
+                    <button type="button" class="btn btn-warning">评论人</button>
                 </th>
                 <th>
-                    <button type="button" class="btn btn-primary">文章操作</button>
+                    <button type="button" class="btn btn-danger">邮箱</button>
                 </th>
                 <th>
-                    <button type="button" class="btn btn-info">更多</button>
+                    <button type="button" class="btn btn-primary">操作</button>
                 </th>
             </tr>
-            <#if articleList??>
-                <#list articleList as article>
+            <#if commentList??>
+                <#list commentList as comment>
                     <tr>
-                        <td>${article.articleTime}</td>
-                        <td>${article.articleCategory}</td>
-                        <td>${article.articleTitle}</td>
-                        <td><!-- Single button -->
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    删除 <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/admin/article?articleId=${article.articleId}<#if page??>&page=${page}</#if><#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">删除</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/admin/update/${article.articleId}">修改</a></li>
-                                </ul>
-                            </div>
-                        </td>
+                        <td>${comment.articleEntity.articleTitle}</td>
+                        <td>${comment.commentTime}</td>
+                        <td>${comment.commentName}</td>
+                        <td>${comment.commentEmail}</td>
                         <td>
-                            <a href="/admin/list_comment?articleId=${article.articleId}">
-                                <span class="label label-info">more</span>
+                            <!-- Single button -->
+                            <a class="btn btn-danger" href="/admin/delete_comment?articleId=${comment.articleEntity.articleId}&commentId=${comment.commentId}">
+                                删除
                             </a>
                         </td>
                     </tr>
@@ -159,8 +119,6 @@
     </div>
     <div class="col-md-2"></div>
 </div>
-
-
 <!--页脚-->
 <div class="row">
     <div class="col-md-2"></div>

@@ -36,4 +36,13 @@ public interface CommentMapper {
     * @Date: 2018/3/4
     */
     List<CommentEntity> listComment(@Param(value = "articleId") Integer articleId);
+
+    /**
+    * @Description: 通过commentId删除评论
+    * @Param: [commentId]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/3/6
+    */
+    void deleteComment(@Param(value = "commentId") Integer commentId);
 }

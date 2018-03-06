@@ -32,9 +32,10 @@ public class CommentMapperTest {
     @Test
     public void listCommentTest(){
         List<CommentEntity> commentEntities=commentMapper.listComment(90);
-        Iterator iterator=commentEntities.iterator();
-        while (iterator.hasNext()){
-            System.out.println(iterator.next().toString());
+        for (CommentEntity c:commentEntities
+             ) {
+            System.out.println(c.getArticleEntity().getArticleTitle());
+            System.out.println(c.toString());
         }
     }
 }

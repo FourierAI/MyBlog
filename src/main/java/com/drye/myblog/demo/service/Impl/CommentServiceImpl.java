@@ -35,4 +35,9 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentEntity> listComment(Integer articleId) {
         return commentMapper.listComment(articleId);
     }
+
+    @Override
+    public void deleteComment(Integer commentId) {
+        commentMapper.deleteComment(commentId);
+    }
 }

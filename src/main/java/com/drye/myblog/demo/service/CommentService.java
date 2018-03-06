@@ -28,4 +28,12 @@ public interface CommentService {
     * @Date: 2018/3/4
     */
     List<CommentEntity> listComment(Integer articleId);
+    /**
+    * @Description:  通过commentId删除评论
+    * @Param: [commentId]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/3/6
+    */
+    void deleteComment(Integer commentId);
 }

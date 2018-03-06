@@ -118,7 +118,13 @@ public class ArticleServiceImpl implements ArticleService {
     public void updateArticle(Integer articleId, String articleCategory, String articleTitle, String articleContent) {
         articleMapper.updateArticle(articleId,articleCategory,articleTitle,articleContent);
     }
-
+    /**
+    * @Description: String类中 == equals 的区别
+    * @Param: [direction, articleId]
+    * @return: java.lang.Integer
+    * @Author: GeekYe
+    * @Date: 2018/3/6
+    */
     @Override
     public Integer getArticleByDirection(String direction, Integer articleId) {
         final String DIRECTION_PREVIOUS="previous";
