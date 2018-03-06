@@ -21,14 +21,21 @@ import java.util.List;
  **/
 @Controller
 public class CommentController {
+
+    /**
+     * @Description: 设值注入
+     * @Author: GeekYe
+     * @Date: 2018/3/6
+     */
     @Autowired
     private CommentService commentService;
 
     public void setCommentService(CommentService commentService) {
         this.commentService = commentService;
     }
+
     /**
-    * @Description:
+    * @Description: 获取文章对应的评论
     * @Param: [articleId, commentName, commentEmail, commentContent, commentTime]
     * @return: java.lang.String
     * @Author: GeekYe
@@ -44,6 +51,7 @@ public class CommentController {
 
         return "redirect:/article?articleId="+articleId;
     }
+
     /**
     * @Description: 根据文章Id查询管理页的评论表格
     * @Param: []
@@ -60,6 +68,14 @@ public class CommentController {
         model.addAttribute("articleId",articleId);
         return "/templates/comment_manage";
     }
+
+    /**
+    * @Description: 删除评论
+    * @Param: [articleId, commentId, redirectAttributes]
+    * @return: java.lang.String
+    * @Author: GeekYe
+    * @Date: 2018/3/6
+    */
     @RequestMapping(value = "/admin/delete_comment",method = RequestMethod.GET)
     public String deleteComment(@RequestParam(value = "articleId") Integer articleId,
                                 @RequestParam(value = "commentId") Integer commentId,

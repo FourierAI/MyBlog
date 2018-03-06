@@ -31,7 +31,7 @@ public class CommentMapperTest {
     }
     @Test
     public void listCommentTest(){
-        List<CommentEntity> commentEntities=commentMapper.listComment(90);
+        List<CommentEntity> commentEntities=commentMapper.listComment(1);
         for (CommentEntity c:commentEntities
              ) {
             System.out.println(c.getArticleEntity().getArticleTitle());

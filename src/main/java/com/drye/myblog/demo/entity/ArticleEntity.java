@@ -1,6 +1,7 @@
 package com.drye.myblog.demo.entity;
 
 public class ArticleEntity {
+
     private Integer articleId;
     private String articleCategory;
     private String articleTitle;

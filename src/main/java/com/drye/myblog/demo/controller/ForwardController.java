@@ -11,12 +11,21 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/")
 @Controller
 public class ForwardController {
+
+    /**
+     * @Description: 设值注入
+     * @Param:
+     * @return:
+     * @Author: GeekYe
+     * @Date: 2018/3/6
+     */
     @Autowired
     private ArticleService articleService;
 
     public void setArticleService(ArticleService articleService) {
         this.articleService = articleService;
     }
+
     /**
     * @Description:  主页跳转,从后端取最新几期更新的文章
     * @Param: [model]
@@ -24,11 +33,12 @@ public class ForwardController {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    @RequestMapping(value = {"index",""},method = RequestMethod.GET)
+    @RequestMapping(value = {"index",""}, method = RequestMethod.GET)
     public String index(Model model){
         model.addAttribute("articleList",articleService.findHome());
         return "templates/index";
     }
+
     /**
     * @Description:  管理员登陆跳转
     * @Param: []
@@ -36,10 +46,11 @@ public class ForwardController {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    @RequestMapping(value = {"login"},method = RequestMethod.GET)
+    @RequestMapping(value = {"login"}, method = RequestMethod.GET)
     public String login(){
         return "templates/login";
     }
+
     /**
     * @Description:  文章页面跳转
     * @Param: [category, page, model]
@@ -47,17 +58,23 @@ public class ForwardController {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    @RequestMapping(value = {"articles"},method = RequestMethod.GET)
-    public String articles(@RequestParam("category") String category,@RequestParam("page") Integer page, Model model){
+    @RequestMapping(value = {"articles"}, method = RequestMethod.GET)
+    public String articles(@RequestParam("category") String category,
+                           @RequestParam("page") Integer page,
+                           Model model){
+
         if(page <=0 ) {
             page = 1;
         }
+
         model.addAttribute("category",category);
         model.addAttribute("page",page);
         model.addAttribute("pagination", articleService.pagination(category));
         model.addAttribute("articleList",articleService.findByPagination(category, (page-1)*5));
+
         return "templates/articles";
     }
+
     /**
     * @Description: 跳转到文章书写页面
     * @Param: []
@@ -65,7 +82,7 @@ public class ForwardController {
     * @Author: GeekYe
     * @Date: 2018/2/27
     */
-    @RequestMapping(value = "/admin/write",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/write", method = RequestMethod.GET)
     public String write(){
         return "templates/write";
     }

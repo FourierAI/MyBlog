@@ -17,6 +17,14 @@ import java.util.List;
 
 @Controller
 public class AdminController {
+
+    /**
+    * @Description: 设值注入
+    * @Param:
+    * @return:
+    * @Author: GeekYe
+    * @Date: 2018/3/6
+    */
     @Autowired
     private ArticleService articleService;
 
@@ -30,6 +38,7 @@ public class AdminController {
     public void setAdminService(AdminService adminService) {
         this.adminService = adminService;
     }
+
     /**
     * @Description:  登陆验证
     * @Param: [page, adminEntity, model, httpSession]
@@ -38,8 +47,8 @@ public class AdminController {
     * @Date: 2018/2/28
     */
     @RequestMapping(value = "/admin", method = RequestMethod.POST)
-    public String formVerify(@RequestParam(value = "page",defaultValue = "1") Integer page,
-                             @RequestParam(value = "category",defaultValue = "default" ) String category,
+    public String formVerify(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                             @RequestParam(value = "category", defaultValue = "default" ) String category,
                              AdminEntity adminEntity,
                              Model model, HttpSession httpSession) {
         //先判断是否为空，防止空指针异常
@@ -48,10 +57,10 @@ public class AdminController {
                 model.addAttribute("error", "账号密码错误，请重新登陆");
                 return "templates/login";
             } else {
-                List<ArticleEntity> articleEntityList=articleService.findAtAdminHome(page-1);
-                model.addAttribute("page",page);
-                model.addAttribute("articleList",articleEntityList);
-                model.addAttribute("pagination",articleService.adminPagination(category));
+                List<ArticleEntity> articleEntityList = articleService.findAtAdminHome(page-1);
+                model.addAttribute("page", page);
+                model.addAttribute("articleList", articleEntityList);
+                model.addAttribute("pagination", articleService.adminPagination(category));
                 httpSession.setAttribute("SessionJudge", adminEntity.getAdminName());
                 return "templates/manage";
             }
@@ -68,21 +77,23 @@ public class AdminController {
     * @Author: GeekYe
     * @Date: 2018/3/1
     */
-    @RequestMapping(value = {"/admin/pagination"},method = RequestMethod.GET)
-    public String findByTime(@RequestParam(value = "page",defaultValue = "1") Integer page,
-                             @RequestParam(value = "method",defaultValue = "asc") String method,
-                             @RequestParam(value = "category",defaultValue = "default") String category,
+    @RequestMapping(value = {"/admin/pagination"}, method = RequestMethod.GET)
+    public String findByTime(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                             @RequestParam(value = "method", defaultValue = "asc") String method,
+                             @RequestParam(value = "category", defaultValue = "default") String category,
                               Model model){
 
-        List<ArticleEntity> articleEntityList=articleService.findByTime(method,page-1,category);
-        model.addAttribute("articleList",articleEntityList);
-        model.addAttribute("method",method);
-        model.addAttribute("page",page);
-        model.addAttribute("category",category);
-        model.addAttribute("pagination",articleService.adminPagination(category));
+        List<ArticleEntity> articleEntityList = articleService.findByTime(method,page-1, category);
+
+        model.addAttribute("articleList", articleEntityList);
+        model.addAttribute("method", method);
+        model.addAttribute("page", page);
+        model.addAttribute("category", category);
+        model.addAttribute("pagination", articleService.adminPagination(category));
 
         return "templates/manage";
     }
+
     /**
     * @Description:  session销毁
     * @Param: [model, httpSession]
@@ -90,9 +101,9 @@ public class AdminController {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    @RequestMapping(value = "/destorysession",method = RequestMethod.GET)
-    public String destorySession(Model model,HttpSession httpSession){
-        if(httpSession!=null){
+    @RequestMapping(value = "/destorysession", method = RequestMethod.GET)
+    public String destroySession(Model model, HttpSession httpSession){
+        if(httpSession != null){
             httpSession.removeAttribute("SessionJudge");
             httpSession.invalidate();
         }

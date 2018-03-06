@@ -2,7 +2,7 @@ package com.drye.myblog.demo.filter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
-import java.util.regex.Pattern;
+
 
 /**
  * @program: MyBlogVersion1
@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
  * @create: 2018-03-06 18:24
  **/
 public class XssAndSqlHttpServletRequestWrapper  extends HttpServletRequestWrapper {
+
     public XssAndSqlHttpServletRequestWrapper(HttpServletRequest request)
     {
         super(request);
@@ -20,7 +21,7 @@ public class XssAndSqlHttpServletRequestWrapper  extends HttpServletRequestWrapp
     public String[] getParameterValues(String parameter)
     {
         String[] values = super.getParameterValues(parameter);
-        if (values==null)
+        if (values == null)
         {
             return null;
         }

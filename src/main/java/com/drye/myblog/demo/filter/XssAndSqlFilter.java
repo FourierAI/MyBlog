@@ -14,21 +14,25 @@ public class XssAndSqlFilter implements Filter {
 
     @Override
     public void destroy() {
-        // TODO Auto-generated method stub
-        System.out.println("destory方法执行了destory方法执行了destory方法执行了destory方法执行了destory方法执行了destory方法执行了destory方法执行了destory方法执行了destory方法执行了destory方法执行了");
+
     }
 
+    /**
+    * @Description: 过滤request参数
+    * @Param: [request, response, chain]
+    * @return: void
+    * @Author: GeekYe
+    * @Date: 2018/3/6
+    */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         XssAndSqlHttpServletRequestWrapper xssRequest = new XssAndSqlHttpServletRequestWrapper((HttpServletRequest) request);
-        System.out.println(xssRequest.toString());
         chain.doFilter(xssRequest, response);
     }
 
     @Override
     public void init(FilterConfig arg0) throws ServletException {
-        // TODO Auto-generated method stub
-        System.out.println("init方法init方法init方法init方法init方法init方法init方法init方法init方法init方法");
+
     }
 
 }

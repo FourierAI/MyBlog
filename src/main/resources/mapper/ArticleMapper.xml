@@ -3,96 +3,135 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.drye.myblog.demo.mapper.ArticleMapper">
+
+    <!--article的resultMap-->
     <resultMap id="article" type="com.drye.myblog.demo.entity.ArticleEntity">
-        <id column="article_id" property="articleId"/>
+        <id column="pk_article_id" property="articleId"/>
         <result column="article_category" property="articleCategory"/>
         <result column="article_title" property="articleTitle"/>
         <result column="article_content" property="articleContent"/>
         <result column="article_time" property="articleTime"/>
     </resultMap>
+
+    <!--获取显示在主页上的文章-->
     <select id="findHome" resultMap="article">
-        SELECT * FROM articles ORDER BY article_time DESC limit 5
+        SELECT *
+        FROM article
+        ORDER BY article_time
+        DESC limit 5
     </select>
-    <!--按照种类统计-->
-    <select id="findBycategory" resultType="com.drye.myblog.demo.entity.ArticleEntity" parameterType="String">
-        SELECT * FROM articles
+
+    <!--按照种类查询-->
+    <select id="findByCategory" resultMap="article" parameterType="String">
+        SELECT *
+        FROM article
         <if test="category!='default'">
             WHERE article_category=#{category}
         </if>
     </select>
+
     <insert id="addArticle">
-        INSERT INTO articles (article_category, article_title, article_content, article_time) VALUES (#{category},#{title},#{content},#{time})
+        INSERT INTO article (article_category, article_title, article_content, article_time)
+        VALUES (#{category},#{title},#{content},#{time})
     </insert>
+
     <!--分页效果-->
     <!--每页显示5篇文章，分页效果-->
     <select id="articlePagination" parameterType="String" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM articles
+        SELECT COUNT(*)
+        FROM article
         <if test="category!='default'">
             WHERE article_category=#{category}
         </if>
     </select>
+
     <!--按照<li><a></a></li>标签传来的值，确定将哪部分内容呈现给用户-->
-    <select id="findByPagination" resultType="com.drye.myblog.demo.entity.ArticleEntity">
-        SELECT * FROM articles WHERE article_category=#{category} ORDER BY article_time LIMIT #{page},5
+    <select id="findByPagination" resultMap="article">
+        SELECT *
+        FROM article
+        WHERE article_category=#{category}
+        ORDER BY article_time LIMIT #{page},5
     </select>
+
     <!--getByObscure模糊查找，包括文章内容与标题-->
-    <select id="findByObscure" resultType="com.drye.myblog.demo.entity.ArticleEntity" parameterType="String">
-        SELECT * FROM articles WHERE article_title LIKE concat('%',#{field},'%') OR article_content LIKE concat('%',#{field},'%')
+    <select id="findByObscure" resultMap="article" parameterType="String">
+        SELECT *
+        FROM article
+        WHERE article_title LIKE concat('%',#{field},'%')
+        OR article_content LIKE concat('%',#{field},'%')
     </select>
+
     <!--显示在管理页面的文章信息列表-->
-    <select id="findAtAdminHome" resultType="com.drye.myblog.demo.entity.ArticleEntity">
-        SELECT * FROM  articles ORDER BY article_time DESC limit #{page},20
+    <select id="findAtAdminHome" resultMap="article">
+        SELECT *
+        FROM  article
+        ORDER BY article_time
+        DESC limit #{page},20
     </select>
+
     <select id="adminPagination" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM articles
+        SELECT COUNT(*)
+        FROM article
         <if test="category!='default'">
             WHERE article_category=#{category}
         </if>
     </select>
+
     <!--删除文章-->
     <delete id="deleteArticle" parameterType="int">
-        DELETE FROM articles WHERE article_id=#{articleId}
+        DELETE
+        FROM article
+        WHERE pk_article_id=#{articleId}
     </delete>
+
     <!--通过时间排序-->
-    <select id="findByTime" resultType="com.drye.myblog.demo.entity.ArticleEntity">
-        SELECT * FROM articles
+    <select id="findByTime" resultMap="article">
+        SELECT *
+        FROM article
         <if test="articleCategory!='default'">
             WHERE article_category=#{articleCategory}
         </if>
         ORDER BY article_time
         <choose>
             <when test="method=='asc'">
-                  ASC
+                ASC
             </when>
             <otherwise>
-                  DESC
+                DESC
             </otherwise>
         </choose>
         limit #{page},20
     </select>
+
     <!--通过Id获取单个对象-->
-    <select id="getArticleById" resultType="com.drye.myblog.demo.entity.ArticleEntity">
-        SELECT * FROM articles WHERE article_id=#{articleId}
+    <select id="getArticleById" resultMap="article">
+        SELECT *
+        FROM article
+        WHERE pk_article_id=#{articleId}
     </select>
+
     <!--修改文章内容-->
     <update id="updateArticle">
-        UPDATE articles
+        UPDATE article
         SET
         article_category=#{articleCategory},
         article_title=#{articleTitle},
         article_content=#{articleContent}
-        WHERE article_id=#{articleId}
+        WHERE pk_article_id=#{articleId}
     </update>
+
     <!--查询articleId之前有多少记录-->
     <select id="countBeforeRecord" resultType="java.lang.Integer">
         SELECT count(*)
-        FROM articles
-        WHERE #{articleId}>articles.article_id
+        FROM article
+        WHERE #{articleId}>article.pk_article_id
     </select>
+
     <!--通过limit偏移查询前一个记录的Id值-->
     <select id="getArticleIdByLimit" resultType="java.lang.Integer">
-        SELECT article_id
-        FROM articles
+        SELECT pk_article_id
+        FROM article
         limit #{offest},1
     </select>
+
 </mapper>

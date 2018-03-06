@@ -27,7 +27,7 @@ public interface ArticleMapper {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    List<ArticleEntity> findBycategory(@Param(value = "category") String category);
+    List<ArticleEntity> findByCategory(@Param(value = "category") String category);
 
     /**
     * @Description:  增加文章

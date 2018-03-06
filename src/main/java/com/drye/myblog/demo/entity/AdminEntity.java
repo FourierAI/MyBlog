@@ -1,6 +1,7 @@
 package com.drye.myblog.demo.entity;
 
 public class AdminEntity {
+
     private Integer adminId;
     private String adminName;
     private String adminPassword;

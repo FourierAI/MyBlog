@@ -19,12 +19,12 @@ import java.util.List;
 public class WebConfig extends WebMvcConfigurerAdapter {
     @Bean
     public FilterRegistrationBean getDemoFilter(){
-        XssAndSqlFilter xssAndSqlFilter=new XssAndSqlFilter();
-        FilterRegistrationBean registrationBean=new FilterRegistrationBean();
+        XssAndSqlFilter xssAndSqlFilter = new XssAndSqlFilter();
+        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(xssAndSqlFilter);
-        List<String> urlPatterns=new ArrayList<String>();
+        List<String> urlPatterns = new ArrayList();
         //拦截路径，可以添加多个
-        urlPatterns.add("/*");
+        urlPatterns.add("/article/**");
         registrationBean.setUrlPatterns(urlPatterns);
         registrationBean.setOrder(1);
         return registrationBean;

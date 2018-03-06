@@ -29,7 +29,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleEntity> findBycategory(String category) {
-        List<ArticleEntity> articleEntityList=articleMapper.findBycategory(category);
+        List<ArticleEntity> articleEntityList=articleMapper.findByCategory(category);
         for (ArticleEntity art:articleEntityList
                 ) {
             String str=art.getArticleContent();
