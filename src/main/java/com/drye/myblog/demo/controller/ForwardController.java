@@ -6,16 +6,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 
+/**
+* @Description: 只做静态文件跳转
+* @Author: GeekYe
+* @Date: 2018/3/7
+*/
 @RequestMapping("/")
 @Controller
 public class ForwardController {
 
     /**
      * @Description: 设值注入
-     * @Param:
-     * @return:
      * @Author: GeekYe
      * @Date: 2018/3/6
      */
@@ -35,7 +37,7 @@ public class ForwardController {
     */
     @RequestMapping(value = {"index",""}, method = RequestMethod.GET)
     public String index(Model model){
-        model.addAttribute("articleList",articleService.findHome());
+        model.addAttribute("articleList",articleService.listArticlesAtHome());
         return "templates/index";
     }
 
@@ -69,8 +71,8 @@ public class ForwardController {
 
         model.addAttribute("category",category);
         model.addAttribute("page",page);
-        model.addAttribute("pagination", articleService.pagination(category));
-        model.addAttribute("articleList",articleService.findByPagination(category, (page-1)*5));
+        model.addAttribute("pagination", articleService.countPaginationByCategory(category));
+        model.addAttribute("articleList",articleService.listArticlesByPagination(category, (page-1)*5));
 
         return "templates/articles";
     }

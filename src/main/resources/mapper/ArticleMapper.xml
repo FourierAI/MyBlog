@@ -14,7 +14,7 @@
     </resultMap>
 
     <!--获取显示在主页上的文章-->
-    <select id="findHome" resultMap="article">
+    <select id="listArticlesAtHome" resultMap="article">
         SELECT *
         FROM article
         ORDER BY article_time
@@ -22,7 +22,7 @@
     </select>
 
     <!--按照种类查询-->
-    <select id="findByCategory" resultMap="article" parameterType="String">
+    <select id="listArticlesByCategory" resultMap="article" parameterType="String">
         SELECT *
         FROM article
         <if test="category!='default'">
@@ -30,14 +30,14 @@
         </if>
     </select>
 
-    <insert id="addArticle">
+    <insert id="saveArticle">
         INSERT INTO article (article_category, article_title, article_content, article_time)
         VALUES (#{category},#{title},#{content},#{time})
     </insert>
 
     <!--分页效果-->
     <!--每页显示5篇文章，分页效果-->
-    <select id="articlePagination" parameterType="String" resultType="java.lang.Integer">
+    <select id="countPaginationByCategory" parameterType="String" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM article
         <if test="category!='default'">
@@ -46,7 +46,7 @@
     </select>
 
     <!--按照<li><a></a></li>标签传来的值，确定将哪部分内容呈现给用户-->
-    <select id="findByPagination" resultMap="article">
+    <select id="listArticlesByPagination" resultMap="article">
         SELECT *
         FROM article
         WHERE article_category=#{category}
@@ -54,7 +54,7 @@
     </select>
 
     <!--getByObscure模糊查找，包括文章内容与标题-->
-    <select id="findByObscure" resultMap="article" parameterType="String">
+    <select id="listArticlesByObscure" resultMap="article" parameterType="String">
         SELECT *
         FROM article
         WHERE article_title LIKE concat('%',#{field},'%')
@@ -62,14 +62,14 @@
     </select>
 
     <!--显示在管理页面的文章信息列表-->
-    <select id="findAtAdminHome" resultMap="article">
+    <select id="listArticlesAtAdminHome" resultMap="article">
         SELECT *
         FROM  article
         ORDER BY article_time
         DESC limit #{page},20
     </select>
 
-    <select id="adminPagination" resultType="java.lang.Integer">
+    <select id="countAdminPaginationByCategory" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM article
         <if test="category!='default'">
@@ -85,7 +85,7 @@
     </delete>
 
     <!--通过时间排序-->
-    <select id="findByTime" resultMap="article">
+    <select id="listArticlesAtAdminByTime" resultMap="article">
         SELECT *
         FROM article
         <if test="articleCategory!='default'">
@@ -111,7 +111,7 @@
     </select>
 
     <!--修改文章内容-->
-    <update id="updateArticle">
+    <update id="updateArticleById">
         UPDATE article
         SET
         article_category=#{articleCategory},

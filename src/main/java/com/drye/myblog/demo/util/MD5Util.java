@@ -3,7 +3,19 @@ package com.drye.myblog.demo.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * The type Md 5 util.
+ * @Description: 账号的MD5加密工具栏
+ * @Author: GeekYe
+ * @Date: 2018/2/16
+ */
 public class MD5Util {
+    /**
+     * Generate md 5 string.
+     *
+     * @param str the str
+     * @return the string
+     */
     public static String generateMd5(String str){
         char[] hexDigits ={'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
         StringBuffer stringBuffer=new StringBuffer();
@@ -13,7 +25,8 @@ public class MD5Util {
             byte [] digest =md5.digest(str.getBytes());
             char[] retChar = new char[digest.length * 2];
             for(int i=0,k=0;i<digest.length;i++){
-                byte _byte = digest[i];//256内数字值
+                //256内数字值
+                byte _byte = digest[i];
                 /*
                  * >>>无符号右移4位 也就是/2^2 除以4，拿到单个字节的低4位，在于 1111 1111 相与，就能得到了。
                  * eg: _byte = 164  二进制：1010 0100

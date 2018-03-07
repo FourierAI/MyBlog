@@ -41,7 +41,7 @@ public class CommentController {
     * @Author: GeekYe
     * @Date: 2018/3/4
     */
-    @RequestMapping(value = "/article/{article.articleId}/comment",method = RequestMethod.POST)
+    @RequestMapping(value = "/article/{article.articleId}/comment", method = RequestMethod.POST)
     public String saveComment(@PathVariable(value = "article.articleId") Integer articleId,
                               @RequestParam(value = "commentName") String commentName,
                               @RequestParam(value = "commentEmail") String commentEmail,
@@ -54,12 +54,12 @@ public class CommentController {
 
     /**
     * @Description: 根据文章Id查询管理页的评论表格
-    * @Param: []
+    * @Param: [articleId]
     * @return: java.lang.String
     * @Author: GeekYe
     * @Date: 2018/3/6
     */
-    @RequestMapping(value = "/admin/list_comment",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/list_comment", method = RequestMethod.GET)
     public String listComment(@RequestParam(value = "articleId") Integer articleId,
                               Model model){
         List<CommentEntity> commentEntities=commentService.listComment(articleId);
@@ -76,7 +76,7 @@ public class CommentController {
     * @Author: GeekYe
     * @Date: 2018/3/6
     */
-    @RequestMapping(value = "/admin/delete_comment",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/delete_comment", method = RequestMethod.GET)
     public String deleteComment(@RequestParam(value = "articleId") Integer articleId,
                                 @RequestParam(value = "commentId") Integer commentId,
                                 RedirectAttributes redirectAttributes){

@@ -5,13 +5,30 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author GeekYe
+ * @Description: AdminMapper
+ * @Date 2018 /03/07
+ */
 @Mapper
 @Component
 public interface AdminMapper {
 
-    /**校对账号密码*/
-    AdminEntity selectAdmin(@Param(value = "name") String name,@Param(value = "password") String password);
-    /**增加Admin账号密码*/
-    void addAdmin(@Param(value = "name") String name, @Param(value = "password") String password);
+    /**
+     * Gets admin.
+     *
+     * @param name     the name
+     * @param password the password
+     * @return the admin
+     */
+    AdminEntity getAdmin(@Param(value = "name") String name, @Param(value = "password") String password);
+
+    /**
+     * Save admin.
+     *
+     * @param name     the name
+     * @param password the password
+     */
+    void saveAdmin(@Param(value = "name") String name, @Param(value = "password") String password);
 
 }

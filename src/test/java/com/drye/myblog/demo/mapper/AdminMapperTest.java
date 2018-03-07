@@ -12,6 +12,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * The type Admin mapper test.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class AdminMapperTest {
@@ -19,28 +22,45 @@ public class AdminMapperTest {
     @Autowired
     private AdminMapper adminMapper;
 
+    /**
+     * Gets admin mapper.
+     *
+     * @return the admin mapper
+     */
     public AdminMapper getAdminMapper() {
         return adminMapper;
     }
 
+    /**
+     * Sets admin mapper.
+     *
+     * @param adminMapper the admin mapper
+     */
     public void setAdminMapper(AdminMapper adminMapper) {
         this.adminMapper = adminMapper;
     }
 
+    /**
+     * Get admin test.
+     */
     @Test
-    public void selectAdminTest(){
+    public void getAdminTest(){
 
         AdminEntity adminEntity1;
 
-        if( (adminEntity1=adminMapper.selectAdmin("yezhipeng","123") )!=null)
+        if( (adminEntity1=adminMapper.getAdmin("yezhipeng","123") )!=null)
             System.out.println(adminEntity1.toString());
         else System.out.println("error");
 
     }
-    @Test
-    public void addAdmin(){
 
-        adminMapper.addAdmin(MD5Util.generateMd5("939647181@qq.com"),MD5Util.generateMd5("123"));
+    /**
+     * Save admin test.
+     */
+    @Test
+    public void saveAdminTest(){
+
+        adminMapper.saveAdmin(MD5Util.generateMd5("939647181@qq.com"),MD5Util.generateMd5("123"));
 
     }
 }

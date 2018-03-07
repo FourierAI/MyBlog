@@ -2,7 +2,16 @@ package com.drye.myblog.demo.mapper;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * The type Util random.
+ */
 public class UtilRandom {
+
+    /**
+     * Random string string.
+     *
+     * @return the string
+     */
     public static String RandomString() {
         StringBuilder builder = new StringBuilder();
         double d = Math.random();

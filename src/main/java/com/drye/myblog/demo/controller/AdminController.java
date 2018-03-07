@@ -5,7 +5,6 @@ import com.drye.myblog.demo.entity.ArticleEntity;
 import com.drye.myblog.demo.service.AdminService;
 import com.drye.myblog.demo.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +19,6 @@ public class AdminController {
 
     /**
     * @Description: 设值注入
-    * @Param:
-    * @return:
     * @Author: GeekYe
     * @Date: 2018/3/6
     */
@@ -53,14 +50,14 @@ public class AdminController {
                              Model model, HttpSession httpSession) {
         //先判断是否为空，防止空指针异常
         if (adminEntity.getAdminName() != null || adminEntity.getAdminPassword() != null) {
-            if (adminService.selectAdmin(adminEntity.getAdminName(), adminEntity.getAdminPassword()) == null) {
+            if (adminService.getAdmin(adminEntity.getAdminName(), adminEntity.getAdminPassword()) == null) {
                 model.addAttribute("error", "账号密码错误，请重新登陆");
                 return "templates/login";
             } else {
-                List<ArticleEntity> articleEntityList = articleService.findAtAdminHome(page-1);
+                List<ArticleEntity> articleEntityList = articleService.listArticlesAtAdminHome(page-1);
                 model.addAttribute("page", page);
                 model.addAttribute("articleList", articleEntityList);
-                model.addAttribute("pagination", articleService.adminPagination(category));
+                model.addAttribute("pagination", articleService.countPaginationByCategory(category));
                 httpSession.setAttribute("SessionJudge", adminEntity.getAdminName());
                 return "templates/manage";
             }
@@ -83,13 +80,13 @@ public class AdminController {
                              @RequestParam(value = "category", defaultValue = "default") String category,
                               Model model){
 
-        List<ArticleEntity> articleEntityList = articleService.findByTime(method,page-1, category);
+        List<ArticleEntity> articleEntityList = articleService.listArticlesAtAdminByTime(method,page-1, category);
 
         model.addAttribute("articleList", articleEntityList);
         model.addAttribute("method", method);
         model.addAttribute("page", page);
         model.addAttribute("category", category);
-        model.addAttribute("pagination", articleService.adminPagination(category));
+        model.addAttribute("pagination", articleService.countPaginationByCategory(category));
 
         return "templates/manage";
     }

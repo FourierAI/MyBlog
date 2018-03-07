@@ -30,8 +30,6 @@ public class ArticleController {
 
     /**
      * @Description: 设值注入
-     * @Param:
-     * @return:
      * @Author: GeekYe
      * @Date: 2018/3/6
      */
@@ -55,12 +53,12 @@ public class ArticleController {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    @RequestMapping(value = {"findByObscure"},method = RequestMethod.POST)
+    @RequestMapping(value = {"findByObscure"}, method = RequestMethod.POST)
     public String findByObscure(@RequestParam(value = "field") String field, Model model){
 
-        List<ArticleEntity> articleEntityList=articleService.findByObscure(field);
+        List<ArticleEntity> articleEntityList = articleService.listArticlesByObscure(field);
 
-        model.addAttribute("articleList",articleEntityList);
+        model.addAttribute("articleList", articleEntityList);
 
         return "templates/articles";
     }
@@ -72,10 +70,10 @@ public class ArticleController {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    @RequestMapping(value = {"/admin/addArticle"},method = RequestMethod.POST)
+    @RequestMapping(value = {"/admin/addArticle"}, method = RequestMethod.POST)
     public String addArticle(ArticleEntity articleEntity){
 
-        articleService.addArticle(articleEntity);
+        articleService.saveArticle(articleEntity);
 
         logger.info(articleEntity.toString());
 
@@ -89,11 +87,11 @@ public class ArticleController {
     * @Author: GeekYe
     * @Date: 2018/2/28
     */
-    @RequestMapping(value = "/admin/article",method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/article", method = RequestMethod.GET)
     public String deleteArticle(@RequestParam(value = "articleId") Integer articleId,
                                 @RequestParam(value = "page") Integer page,
-                                @RequestParam(value = "category",defaultValue = "default") String category,
-                                @RequestParam(value = "method",defaultValue = "asc") String method,
+                                @RequestParam(value = "category", defaultValue = "default") String category,
+                                @RequestParam(value = "method", defaultValue = "asc") String method,
                                 RedirectAttributes redirectAttributes){
 
         articleService.deleteArticle(articleId);
@@ -112,12 +110,12 @@ public class ArticleController {
     * @Author: GeekYe
     * @Date: 2018/3/3
     */
-    @RequestMapping(value = "/article",method = RequestMethod.GET)
+    @RequestMapping(value = "/article", method = RequestMethod.GET)
     public String getArticleById(@RequestParam(value = "articleId") Integer articleId,
                                  Model model){
 
-        model.addAttribute("article",articleService.getArticleById(articleId));
-        model.addAttribute("commentList",commentService.listComment(articleId));
+        model.addAttribute("article", articleService.getArticleById(articleId));
+        model.addAttribute("commentList", commentService.listComment(articleId));
 
         return "/templates/article";
     }
@@ -133,7 +131,7 @@ public class ArticleController {
     public String Update(@PathVariable(value = "articleId") Integer articleId,
                          Model model){
 
-        model.addAttribute("article",articleService.getArticleByIdNotMD(articleId));
+        model.addAttribute("article", articleService.getArticleByIdNotMD(articleId));
 
         return "templates/update_article";
     }
@@ -151,7 +149,7 @@ public class ArticleController {
                                 @RequestParam(value = "articleContent") String articleContent,
                                 @RequestParam(value = "articleId") Integer articleId){
 
-        articleService.updateArticle(articleId,articleCategory,articleTitle,articleContent);
+        articleService.updateArticleById(articleId, articleCategory, articleTitle, articleContent);
 
         return "redirect:/admin/pagination";
     }
@@ -163,13 +161,13 @@ public class ArticleController {
     * @Author: GeekYe
     * @Date: 2018/3/6
     */
-    @RequestMapping(value = "/admin/articleByObscure",method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/articleByObscure", method = RequestMethod.POST)
     public String getArticleByObscure(@RequestParam(value = "field") String field,
                                       Model model){
 
-        List<ArticleEntity> articleEntityList=articleService.findByObscure(field);
+        List<ArticleEntity> articleEntityList = articleService.listArticlesByObscure(field);
 
-        model.addAttribute("articleList",articleEntityList);
+        model.addAttribute("articleList", articleEntityList);
 
         return "templates/article_obscure";
     }
@@ -181,10 +179,10 @@ public class ArticleController {
     * @Author: GeekYe
     * @Date: 2018/3/6
     */
-    @RequestMapping(value = "/article/direction/{direction}/{articleId}",method = RequestMethod.GET)
+    @RequestMapping(value = "/article/direction/{direction}/{articleId}", method = RequestMethod.GET)
     public String getArticleByDirection(@PathVariable(value = "direction") String direction,
                                         @PathVariable(value = "articleId") Integer articleId){
 
-        return "redirect:/article?articleId="+articleService.getArticleByDirection(direction,articleId);
+        return "redirect:/article?articleId="+articleService.getArticleByDirection(direction, articleId);
     }
 }

@@ -10,15 +10,28 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * The type Article service.
+ */
 @Service
 public class ArticleServiceImpl implements ArticleService {
+
+    /**
+     * Sets article mapper.
+     *
+     * @param articleMapper the article mapper
+     */
     @Autowired
     private ArticleMapper articleMapper;
-    /**
-     * 将markdown转换成html,显示在主页*/
+
+    public void setArticleMapper(ArticleMapper articleMapper) {
+        this.articleMapper = articleMapper;
+    }
+
     @Override
-    public List<ArticleEntity> findHome() {
-        List<ArticleEntity> articleEntityList=articleMapper.findHome();
+    public List<ArticleEntity> listArticlesAtHome() {
+        List<ArticleEntity> articleEntityList=articleMapper.listArticlesAtHome();
         for (ArticleEntity art:articleEntityList
              ) {
             String str=art.getArticleContent();
@@ -28,8 +41,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleEntity> findBycategory(String category) {
-        List<ArticleEntity> articleEntityList=articleMapper.findByCategory(category);
+    public List<ArticleEntity> listArticlesByCategory(String category) {
+        List<ArticleEntity> articleEntityList=articleMapper.listArticlesByCategory(category);
         for (ArticleEntity art:articleEntityList
                 ) {
             String str=art.getArticleContent();
@@ -39,8 +52,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Integer pagination(String category) {
-        Integer num=articleMapper.articlePagination(category);
+    public Integer countPaginationByCategory(String category) {
+        Integer num=articleMapper.countPaginationByCategory(category);
         Integer MOD = num % 5;
         Integer result = num / 5;
 
@@ -49,8 +62,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleEntity> findByPagination(String category, Integer page) {
-        List<ArticleEntity> articleEntityList=articleMapper.findByPagination(category,page);
+    public List<ArticleEntity> listArticlesByPagination(String category, Integer page) {
+        List<ArticleEntity> articleEntityList=articleMapper.listArticlesByPagination(category,page);
         for (ArticleEntity art:articleEntityList
                 ) {
             String str=art.getArticleContent();
@@ -61,8 +74,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleEntity> findByObscure(String field) {
-        List<ArticleEntity> articleEntityList = articleMapper.findByObscure(field);
+    public List<ArticleEntity> listArticlesByObscure(String field) {
+        List<ArticleEntity> articleEntityList = articleMapper.listArticlesByObscure(field);
         for (ArticleEntity art:articleEntityList
                 ) {
             String str=art.getArticleContent();
@@ -72,23 +85,23 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleEntity> findAtAdminHome(Integer page) {
+    public List<ArticleEntity> listArticlesAtAdminHome(Integer page) {
         page=page*20;
-        return articleMapper.findAtAdminHome(page);
+        return articleMapper.listArticlesAtAdminHome(page);
     }
 
     @Override
-    public Integer adminPagination(String category) {
-        Integer paginationNum=articleMapper.adminPagination(category);
+    public Integer countAdminPaginationByCategory(String category) {
+        Integer paginationNum=articleMapper.countAdminPaginationByCategory(category);
         return paginationNum%20==0 ? paginationNum/20 : paginationNum/20+1;
     }
 
     @Override
-    public void addArticle(ArticleEntity articleEntity) {
+    public void saveArticle(ArticleEntity articleEntity) {
         Date date = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         articleEntity.setArticleTime(df.format(date));
-        articleMapper.addArticle(articleEntity.getArticleCategory(),articleEntity.getArticleTitle(),articleEntity.getArticleContent(),articleEntity.getArticleTime());
+        articleMapper.saveArticle(articleEntity.getArticleCategory(),articleEntity.getArticleTitle(),articleEntity.getArticleContent(),articleEntity.getArticleTime());
     }
 
     @Override
@@ -97,9 +110,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleEntity> findByTime(String method, Integer page, String category) {
+    public List<ArticleEntity> listArticlesAtAdminByTime(String method, Integer page, String category) {
         page=page*20;
-        return articleMapper.findByTime( method , page , category );
+        return articleMapper.listArticlesAtAdminByTime( method , page , category );
     }
 
     @Override
@@ -115,8 +128,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void updateArticle(Integer articleId, String articleCategory, String articleTitle, String articleContent) {
-        articleMapper.updateArticle(articleId,articleCategory,articleTitle,articleContent);
+    public void updateArticleById(Integer articleId, String articleCategory, String articleTitle, String articleContent) {
+        articleMapper.updateArticleById(articleId,articleCategory,articleTitle,articleContent);
     }
     /**
     * @Description: String类中 == equals 的区别
@@ -139,7 +152,4 @@ public class ArticleServiceImpl implements ArticleService {
         return articleId;
     }
 
-    public void setArticleMapper(ArticleMapper articleMapper) {
-        this.articleMapper = articleMapper;
-    }
 }

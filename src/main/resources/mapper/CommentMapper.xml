@@ -29,6 +29,14 @@
         (#{commentName},#{commentEmail},#{commentContent},#{commentTime},#{articleId})
     </insert>
 
+    <!--删除-->
+    <delete id="deleteComment">
+        DELETE
+        FROM comment
+        WHERE
+        pk_comment_id=#{commentId}
+    </delete>
+
     <!--查询-->
     <select id="listComment" resultMap="comment">
         SELECT pk_comment_id, comment_name, comment_email, comment_content, comment_time, comment.article_id,article.article_title,pk_article_id
@@ -37,13 +45,5 @@
         article ON comment.article_id=article.pk_article_id
         WHERE comment.article_id=#{articleId}
     </select>
-
-    <!--删除-->
-    <delete id="deleteComment">
-        DELETE
-        FROM comment
-        WHERE
-        pk_comment_id=#{commentId}
-    </delete>
 
 </mapper>

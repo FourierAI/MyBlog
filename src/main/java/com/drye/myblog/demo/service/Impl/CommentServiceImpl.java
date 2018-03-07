@@ -11,19 +11,28 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * The type Comment service.
+ *
  * @program: MyBlogVersion1
  * @description: commentService接口的实现类
  * @author: GeekYe
- * @create: 2018-03-04 15:06
- **/
+ * @create: 2018 -03-04 15:06
+ */
 @Service
 public class CommentServiceImpl implements CommentService {
+
     @Autowired
     private CommentMapper commentMapper;
 
+    /**
+     * Sets comment mapper.
+     *
+     * @param commentMapper the comment mapper
+     */
     public void setCommentMapper(CommentMapper commentMapper) {
         this.commentMapper = commentMapper;
     }
+
 
     @Override
     public void saveComment(String commentName, String commentEmail, String commentContent, Integer articleId) {

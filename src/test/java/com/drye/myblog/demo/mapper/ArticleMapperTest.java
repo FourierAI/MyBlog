@@ -14,6 +14,9 @@ import java.util.Date;
 import java.util.List;
 
 
+/**
+ * The type Article mapper test.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ArticleMapperTest {
@@ -21,19 +24,33 @@ public class ArticleMapperTest {
     private ArticleMapper articleMapper;
     @Autowired
     private ArticleService articleService;
+
+    /**
+     * Sets article mapper.
+     *
+     * @param articleMapper the article mapper
+     */
     public void setArticleMapper(ArticleMapper articleMapper) {
         this.articleMapper = articleMapper;
     }
+
+    /**
+     * List articles at home test.
+     */
     @Test
-    public void findHomeTest(){
-        List<ArticleEntity> articleEntityList= articleMapper.findHome();
+    public void listArticlesAtHomeTest(){
+        List<ArticleEntity> articleEntityList= articleMapper.listArticlesAtHome();
         for (ArticleEntity a:articleEntityList
              ) {
             System.out.println(a.toString());
         }
     }
+
+    /**
+     * Save article test.
+     */
     @Test
-    public void addArticles() {
+    public void saveArticleTest() {
         for (int i = 0; i < 20; i++) {
             Date date = new Date();
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -42,79 +59,104 @@ public class ArticleMapperTest {
             articleEntity.setArticleContent(UtilRandom.RandomString());
             articleEntity.setArticleCategory("生活关于我");
             articleEntity.setArticleTime(df.format(date));
-            articleMapper.addArticle(articleEntity.getArticleCategory(), articleEntity.getArticleTitle(), articleEntity.getArticleContent(), articleEntity.getArticleTime());
+            articleMapper.saveArticle(articleEntity.getArticleCategory(), articleEntity.getArticleTitle(), articleEntity.getArticleContent(), articleEntity.getArticleTime());
         }
     }
+
+    /**
+     * Count pagination by category test.
+     */
     @Test
-    public void pagination(){
-        System.out.println(articleMapper.articlePagination("摄影|电影"));
+    public void countPaginationByCategoryTest(){
+        System.out.println(articleMapper.countPaginationByCategory("摄影|电影"));
     }
+
+    /**
+     * List articles by pagination test.
+     */
     @Test
-    public void findByPagination(){
-        List<ArticleEntity> articleEntityList=articleService.findByPagination("摄影电影",1);
+    public void listArticlesByPaginationTest(){
+        List<ArticleEntity> articleEntityList=articleService.listArticlesByPagination("摄影电影",1);
         for (ArticleEntity art:articleEntityList
              ) {
             System.out.println(art);
         }
     }
+
+    /**
+     * List articles by obscure test.
+     */
     @Test
-    public void findByObscureTest(){
+    public void listArticlesByObscureTest(){
         String str="框架";
-        List<ArticleEntity> articleEntityList=articleMapper.findByObscure(str);
+        List<ArticleEntity> articleEntityList=articleMapper.listArticlesByObscure(str);
         for (ArticleEntity a:articleEntityList
              ) {
             System.out.println(a.toString());
         }
     }
+
+    /**
+     * List articles at admin home test.
+     */
     @Test
-    public void findAtAdminHome(){
-        List<ArticleEntity> articleEntityList=articleMapper.findAtAdminHome(0);
+    public void listArticlesAtAdminHomeTest(){
+        List<ArticleEntity> articleEntityList=articleMapper.listArticlesAtAdminHome(0);
         for (ArticleEntity a:articleEntityList
              ) {
             System.out.println(a.getArticleTime());
         }
 
     }
+
+    /**
+     * Count admin pagination by category test.
+     */
     @Test
-    public void adminPagination(){
-        System.out.println(articleMapper.adminPagination("编程软件"));
+    public void countAdminPaginationByCategoryTest(){
+        System.out.println(articleMapper.countAdminPaginationByCategory("编程软件"));
     }
+
+    /**
+     * Delete article test.
+     */
     @Test
-    public void deleteArticle(){
+    public void deleteArticleTest(){
         articleMapper.deleteArticle(249);
     }
 
+    /**
+     * Find by time test.
+     */
     @Test
-    public void findByTime(){
-        List<ArticleEntity> articleEntityList=articleMapper.findByTime("asc",0,"编程软件");
+    public void findByTimeTest(){
+        List<ArticleEntity> articleEntityList=articleMapper.listArticlesAtAdminByTime("asc",0,"编程软件");
         for (ArticleEntity articleEntity:articleEntityList
              ) {
             System.out.println(articleEntity.getArticleTime());
         }
     }
+
     /**
-    * @Description: 测试通过Id获取文章单个对象
-    * @Param: []
-    * @return: void
-    * @Author: GeekYe
-    * @Date: 2018/3/3
-    */
+     * Get article by id test.
+     */
     @Test
-    public void getArticleById(){
+    public void getArticleByIdTest(){
         System.out.println(articleMapper.getArticleById(96).toString());
 
     }
+
     /**
-    * @Description: 修改文章内容
-    * @Param: []
-    * @return: void
-    * @Author: GeekYe
-    * @Date: 2018/3/4
-    */
+     * Update article test.
+     */
     @Test
-    public void updateArticle(){
-        articleMapper.updateArticle(75,"测试","测试","测试");
+    public void updateArticleTest(){
+        articleMapper.updateArticleById(75,"测试","测试","测试");
     }
+
+    /**
+     * Conut before record test.
+     */
     @Test
     public void conutBeforeRecordTest(){
         System.out.println(articleMapper.countBeforeRecord(75));
