@@ -26,9 +26,6 @@
             line-height: 1.5;
         }
 
-        .table {
-            font-size: 18px;
-        }
         #pagination{
             text-align: center;
         }
@@ -77,115 +74,115 @@
     </div>
 </nav>
 <!--表格，从后端读取，可排序-->
-<div class="row">
-    <div class="col-md-2"></div>
-    <div class="col-md-8">
-        <table class="table" id="table">
-            <tr>
-                <th>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-success">发布时间</button>
-                        <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="/admin/pagination?page=${page}&method=asc<#if category??>&category=${category}</#if>">升序</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/pagination?page=${page}&method=desc<#if category??>&category=${category}</#if>">降序</a>
-                                </li>
-                            </ul>
-                    </div>
-                </th>
-                <th>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-warning">文章类别</button>
-                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <span class="caret"></span>
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=编程软件">编程/软件</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=数学物理">数学/物理</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=摄影电影">摄影/电影</a>
-                                </li>
-                                <li>
-                                    <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=生活关于我">生活/关于我</a>
-                                </li>
-                            </ul>
-                    </div>
-                </th>
-                <th>
-                    <button type="button" class="btn btn-danger">文章标题</button>
-                </th>
-                <th>
-                    <button type="button" class="btn btn-primary">文章操作</button>
-                </th>
-                <th>
-                    <button type="button" class="btn btn-info">更多</button>
-                </th>
-            </tr>
-            <#if articleList??>
-                <#list articleList as article>
-                    <tr>
-                        <td>${article.articleTime}</td>
-                        <td>${article.articleCategory}</td>
-                        <td>${article.articleTitle}</td>
-                        <td><!-- Single button -->
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    删除 <span class="caret"></span>
-                                </button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <table class="table">
+                <tr>
+                    <th>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                发布时间 <span class="caret"></span>
+                            </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/admin/article?articleId=${article.articleId}<#if page??>&page=${page}</#if><#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">删除</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/admin/update/${article.articleId}">修改</a></li>
+                                    <li>
+                                        <a href="/admin/pagination?page=${page}&method=asc<#if category??>&category=${category}</#if>">升序</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/pagination?page=${page}&method=desc<#if category??>&category=${category}</#if>">降序</a>
+                                    </li>
                                 </ul>
-                            </div>
-                        </td>
-                        <td>
-                            <a href="/admin/list_comment?articleId=${article.articleId}">
-                                <span class="label label-info">more</span>
-                            </a>
-                        </td>
-                    </tr>
-                </#list>
-            </#if>
-        </table>
+                        </div>
+                    </th>
+                    <th>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                文章类别 <span class="caret"></span>
+                            </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=编程软件">编程/软件</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=数学物理">数学/物理</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=摄影电影">摄影/电影</a>
+                                    </li>
+                                    <li>
+                                        <a href="/admin/pagination?page=${page}<#if method??>&method=${method}</#if>&category=生活关于我">生活/关于我</a>
+                                    </li>
+                                </ul>
+                        </div>
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-danger">文章标题</button>
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-primary">文章操作</button>
+                    </th>
+                    <th>
+                        <button type="button" class="btn btn-info">更多</button>
+                    </th>
+                </tr>
+                <#if articleList??>
+                    <#list articleList as article>
+                        <tr>
+                            <td>${article.articleTime}</td>
+                            <td>${article.articleCategory}</td>
+                            <td>${article.articleTitle}</td>
+                            <td><!-- Single button -->
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        删除 <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/admin/article?articleId=${article.articleId}<#if page??>&page=${page}</#if><#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">删除</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a href="/admin/update/${article.articleId}">修改</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="/admin/list_comment?articleId=${article.articleId}">
+                                    <span class="label label-info">more</span>
+                                </a>
+                            </td>
+                        </tr>
+                    </#list>
+                </#if>
+            </table>
+        </div>
+        <div class="col-md-2"></div>
     </div>
-    <div class="col-md-2"></div>
 </div>
 
 <!--分页,从后端读取数据来进行分页-->
 <#if pagination??>
     <div class="row" id="pagination">
         <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <#list 1..pagination!1 as i>
-                    <#if page==i>
-                    <li class="active"><a href="/admin/pagination?page=${i}<#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">${i}</a></li>
-                    <#else/>
-                        <li><a href="/admin/pagination?page=${i}<#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">${i}</a></li>
-                    </#if>
-                </#list>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
+            <#if pagination!=0>
+                <ul class="pagination">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                        <#list 1..pagination!1 as i>
+                            <#if page==i>
+                            <li class="active"><a href="/admin/pagination?page=${i}<#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">${i}</a></li>
+                            <#else/>
+                                <li><a href="/admin/pagination?page=${i}<#if method??>&method=${method}</#if><#if category??>&category=${category}</#if>">${i}</a></li>
+                            </#if>
+                        </#list>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </#if>
         </nav>
     </div>
 </#if>

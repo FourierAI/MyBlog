@@ -86,7 +86,7 @@ public class AdminController {
         model.addAttribute("method", method);
         model.addAttribute("page", page);
         model.addAttribute("category", category);
-        model.addAttribute("pagination", articleService.countPaginationByCategory(category));
+        model.addAttribute("pagination", articleService.countAdminPaginationByCategory(category));
 
         return "templates/manage";
     }
