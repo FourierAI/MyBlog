@@ -1,4 +1,7 @@
 # MyBlog
+
+[![GitHub license](https://img.shields.io/github/license/MrYezhipeng/MyBlog.svg)](https://github.com/MrYezhipeng/MyBlog/blob/master/LICENSE)
+
 SpringBoot、Mybatis开发的个人博客系统，支持Markdown编辑文章。
 ### 本地运行
 请在本机上安装Mysql数据库，并执行一下sql语句，来创建表
