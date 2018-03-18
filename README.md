@@ -5,7 +5,7 @@
 SpringBoot、Mybatis开发的个人博客系统，支持Markdown编辑文章。
 ## 本地运行
 ### Mysql数据库的配置
-请在本机上安装Mysql数据库，并执行一下sql语句，来创建表
+请在本机上安装Mysql数据库，并执行以下sql语句，来创建表
 #### 用户表
 ```sql
 CREATE TABLE `admin` (
